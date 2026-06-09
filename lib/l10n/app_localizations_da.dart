@@ -9,14 +9,14 @@ class L10nDa extends L10n {
   L10nDa([String locale = 'da']) : super(locale);
 
   @override
-  String get appTitle => 'CarHero';
+  String get appTitle => 'Kanvas';
 
   @override
-  String get heroTitle => 'Din AI-bilrådgiver.';
+  String get heroTitle => 'Din AI-kunstrådgiver.';
 
   @override
   String get heroSubtitle =>
-      'Søg, sammenlign og vurder premiumbiler i hele Europa.';
+      'Research artists, track auctions, and value artworks across the Baltic and Nordic markets.';
 
   @override
   String get signIn => 'Log ind';
@@ -64,11 +64,10 @@ class L10nDa extends L10n {
   String get newChat => 'Ny chat';
 
   @override
-  String get chatPlaceholder =>
-      'Søg efter en bil, sammenlign modeller eller få en vurdering...';
+  String get chatPlaceholder => 'Ask about an artist, artwork, or market...';
 
   @override
-  String get chatWelcomeTitle => 'CarHero AI-rådgiver';
+  String get chatWelcomeTitle => 'Kanvas AI-rådgiver';
 
   @override
   String get chatWelcomeBody =>
@@ -96,56 +95,13 @@ class L10nDa extends L10n {
   String get copied => 'Kopieret!';
 
   @override
-  String get favorites => 'Favoritter';
-
-  @override
-  String get noFavorites =>
-      'Ingen favoritter endnu. Brug hjerteknappen for at gemme annoncer.';
-
-  @override
-  String get savedSearches => 'Gemte søgninger';
-
-  @override
-  String get noSavedSearches => 'Ingen gemte søgninger endnu.';
-
-  @override
-  String get myGarage => 'Min garage';
-
-  @override
-  String get noGarageCars => 'Ingen biler i garagen endnu.';
-
-  @override
-  String get addCar => 'Tilføj bil';
-
-  @override
-  String get marketMap => 'Markedskort';
-
-  @override
-  String get overview => 'Oversigt';
-
-  @override
-  String get valueMap => 'Værdikort';
-
-  @override
-  String get priceIndex => 'Prisindeks';
-
-  @override
-  String get analytics => 'Analyse';
-
-  @override
-  String get textToSql => 'Tekst til SQL + Diagrammer';
-
-  @override
-  String get runQuery => 'Kør';
-
-  @override
   String get profile => 'Profil og indstillinger';
 
   @override
   String get account => 'Konto';
 
   @override
-  String get searchPreferences => 'Søgeindstillinger';
+  String get artPreferences => 'Art Preferences';
 
   @override
   String get notifications => 'Notifikationer';
@@ -187,92 +143,26 @@ class L10nDa extends L10n {
   String get sendMessage => 'Send besked';
 
   @override
-  String get exploreMarket => 'Udforsk markedet';
+  String get learnMore => 'Learn More';
 
   @override
-  String get listings => 'Bilannoncer';
+  String get aiAgents => 'AI Agents';
 
   @override
-  String get brands => 'Mærker';
+  String get artists => 'Artists';
 
   @override
   String get countries => 'Lande';
 
   @override
-  String get sources => 'Datakilder';
+  String get auctionHouses => 'Auction Houses';
 
   @override
-  String get budgetRange => 'Budgetinterval (EUR)';
+  String get preferredMediums => 'Preferred Mediums';
 
   @override
-  String get preferredMakes => 'Foretrukne mærker';
-
-  @override
-  String get bodyTypes => 'Karosserityper';
-
-  @override
-  String get fuelTypes => 'Brændstoftyper';
-
-  @override
-  String get transmission => 'Gearkasse';
-
-  @override
-  String get maxMileage => 'Maks kilometertal';
-
-  @override
-  String get yearRange => 'Årsinterval';
-
-  @override
-  String get newListingsNotify => 'Nye annoncer efter mine præferencer';
-
-  @override
-  String get priceDropsNotify => 'Prisfald på mine favoritter';
+  String get preferredPeriods => 'Preferred Periods';
 
   @override
   String get weeklyDigestNotify => 'Ugentlig markedsoversigt';
-
-  @override
-  String get viewTco => 'Vis TCO-oversigt';
-
-  @override
-  String get totalCostOfOwnership => 'Samlede ejeromkostninger';
-
-  @override
-  String get fuelEnergy => 'Brændstof/Energi';
-
-  @override
-  String get insurance => 'Forsikring';
-
-  @override
-  String get maintenance => 'Vedligeholdelse';
-
-  @override
-  String get depreciation => 'Værditab';
-
-  @override
-  String get totalAnnual => 'Total per år';
-
-  @override
-  String get totalMonthly => 'Total per måned';
-
-  @override
-  String get costPerKm => 'Pris per km';
-
-  @override
-  String get marketValue => 'Markedsværdi';
-
-  @override
-  String get purchasePrice => 'Købspris';
-
-  @override
-  String get comparables => 'sammenlignelige';
-
-  @override
-  String get allCountries => 'Alle lande';
-
-  @override
-  String get allBrands => 'Alle mærker';
-
-  @override
-  String get allFuels => 'Alle brændstoffer';
 }

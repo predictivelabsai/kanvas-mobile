@@ -3,31 +3,18 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:carhero/config/theme.dart';
-import 'package:carhero/models/auth.dart';
-import 'package:carhero/models/agent.dart';
-import 'package:carhero/models/session.dart';
-import 'package:carhero/models/favorite.dart';
-import 'package:carhero/models/garage.dart';
-import 'package:carhero/models/market_map.dart';
-import 'package:carhero/models/profile.dart';
-import 'package:carhero/providers/auth_provider.dart';
-import 'package:carhero/providers/agent_provider.dart';
-import 'package:carhero/providers/session_provider.dart';
-import 'package:carhero/providers/favorite_provider.dart';
-import 'package:carhero/providers/garage_provider.dart';
-import 'package:carhero/providers/market_map_provider.dart';
-import 'package:carhero/providers/profile_provider.dart';
-import 'package:carhero/screens/chat_screen.dart';
-import 'package:carhero/screens/market_map_screen.dart';
-import 'package:carhero/screens/favorites_screen.dart';
-import 'package:carhero/screens/garage_screen.dart';
-import 'package:carhero/screens/profile_screen.dart';
-import 'package:carhero/screens/app_scaffold.dart';
-
-// ---------------------------------------------------------------------------
-// Fake notifiers to isolate from network
-// ---------------------------------------------------------------------------
+import 'package:kanvas/config/theme.dart';
+import 'package:kanvas/models/auth.dart';
+import 'package:kanvas/models/agent.dart';
+import 'package:kanvas/models/session.dart';
+import 'package:kanvas/models/profile.dart';
+import 'package:kanvas/providers/auth_provider.dart';
+import 'package:kanvas/providers/agent_provider.dart';
+import 'package:kanvas/providers/session_provider.dart';
+import 'package:kanvas/providers/profile_provider.dart';
+import 'package:kanvas/screens/chat_screen.dart';
+import 'package:kanvas/screens/profile_screen.dart';
+import 'package:kanvas/screens/app_scaffold.dart';
 
 class _FakeAuthNotifier extends AuthNotifier {
   @override
@@ -37,16 +24,6 @@ class _FakeAuthNotifier extends AuthNotifier {
     name: 'Test User',
     userId: 1,
   );
-}
-
-class _FakeFavoritesNotifier extends FavoritesNotifier {
-  @override
-  Future<List<Favorite>> build() async => <Favorite>[];
-}
-
-class _FakeGarageNotifier extends GarageNotifier {
-  @override
-  Future<List<GarageCar>> build() async => <GarageCar>[];
 }
 
 class _FakeProfileNotifier extends ProfileNotifier {
@@ -74,21 +51,6 @@ Widget _buildNavTestApp({String initialLocation = '/chat'}) {
                 const NoTransitionPage(child: ChatScreen()),
           ),
           GoRoute(
-            path: '/market-map',
-            pageBuilder: (context, state) =>
-                const NoTransitionPage(child: MarketMapScreen()),
-          ),
-          GoRoute(
-            path: '/favorites',
-            pageBuilder: (context, state) =>
-                const NoTransitionPage(child: FavoritesScreen()),
-          ),
-          GoRoute(
-            path: '/garage',
-            pageBuilder: (context, state) =>
-                const NoTransitionPage(child: GarageScreen()),
-          ),
-          GoRoute(
             path: '/profile',
             pageBuilder: (context, state) =>
                 const NoTransitionPage(child: ProfileScreen()),
@@ -103,21 +65,7 @@ Widget _buildNavTestApp({String initialLocation = '/chat'}) {
       authProvider.overrideWith(() => _FakeAuthNotifier()),
       agentsProvider.overrideWith((ref) => <AgentOut>[]),
       sessionsProvider.overrideWith((ref) => <SessionSummary>[]),
-      favoritesProvider.overrideWith(() => _FakeFavoritesNotifier()),
-      garageProvider.overrideWith(() => _FakeGarageNotifier()),
       profileProvider.overrideWith(() => _FakeProfileNotifier()),
-      marketFiltersProvider.overrideWith(
-        (ref) => const MarketFilters(
-          countries: ['Germany', 'France'],
-          makes: ['BMW', 'Audi'],
-          fuelTypes: ['Petrol', 'Diesel'],
-        ),
-      ),
-      treemapProvider.overrideWith((ref) => <TreemapItem>[]),
-      trendsProvider.overrideWith((ref) => <TrendItem>[]),
-      geoProvider.overrideWith((ref) => <GeoItem>[]),
-      valueMapProvider.overrideWith((ref) => <ValueMapItem>[]),
-      priceIndexProvider.overrideWith((ref) => <PriceIndexItem>[]),
     ],
     child: MaterialApp.router(theme: AppTheme.light, routerConfig: _router),
   );
@@ -129,46 +77,8 @@ void main() {
       await tester.pumpWidget(_buildNavTestApp());
       await tester.pumpAndSettle();
 
-      expect(find.text('CarHero AI'), findsOneWidget);
-      expect(find.text('CarHero AI Advisor'), findsOneWidget);
-    });
-
-    testWidgets('navigating to Market Map shows tabs and title', (
-      tester,
-    ) async {
-      await tester.pumpWidget(_buildNavTestApp(initialLocation: '/market-map'));
-      await tester.pumpAndSettle();
-
-      expect(find.text('Market Map'), findsOneWidget);
-      expect(find.text('Overview'), findsOneWidget);
-      expect(find.text('Value Map'), findsOneWidget);
-      expect(find.text('Price Index'), findsOneWidget);
-    });
-
-    testWidgets('Favorites screen shows empty state', (tester) async {
-      await tester.pumpWidget(_buildNavTestApp(initialLocation: '/favorites'));
-      await tester.pumpAndSettle();
-
-      expect(find.text('No favorites yet'), findsOneWidget);
-      expect(
-        find.text('Save listings you like and they will appear here.'),
-        findsOneWidget,
-      );
-    });
-
-    testWidgets('Garage screen shows empty state with Add Car button', (
-      tester,
-    ) async {
-      await tester.pumpWidget(_buildNavTestApp(initialLocation: '/garage'));
-      await tester.pumpAndSettle();
-
-      expect(find.text('My Garage'), findsOneWidget);
-      expect(find.text('No cars in your garage'), findsOneWidget);
-      expect(
-        find.text('Add your car to track its value and costs.'),
-        findsOneWidget,
-      );
-      expect(find.text('Add Car'), findsWidgets);
+      expect(find.text('Kanvas AI'), findsOneWidget);
+      expect(find.text('Kanvas AI Advisor'), findsOneWidget);
     });
 
     testWidgets('Profile screen shows account section', (tester) async {
@@ -183,18 +93,15 @@ void main() {
       await tester.pumpWidget(_buildNavTestApp());
       await tester.pumpAndSettle();
 
-      // Start on chat
-      expect(find.text('CarHero AI Advisor'), findsOneWidget);
+      expect(find.text('Kanvas AI Advisor'), findsOneWidget);
 
-      // Navigate to favorites via router
-      _router.go('/favorites');
+      _router.go('/profile');
       await tester.pumpAndSettle();
-      expect(find.text('No favorites yet'), findsOneWidget);
+      expect(find.text('Profile & Preferences'), findsOneWidget);
 
-      // Navigate back to chat
       _router.go('/chat');
       await tester.pumpAndSettle();
-      expect(find.text('CarHero AI Advisor'), findsOneWidget);
+      expect(find.text('Kanvas AI Advisor'), findsOneWidget);
     });
 
     testWidgets('AppScaffold wraps all routes', (tester) async {
@@ -203,11 +110,7 @@ void main() {
 
       expect(find.byType(AppScaffold), findsOneWidget);
 
-      _router.go('/market-map');
-      await tester.pumpAndSettle();
-      expect(find.byType(AppScaffold), findsOneWidget);
-
-      _router.go('/garage');
+      _router.go('/profile');
       await tester.pumpAndSettle();
       expect(find.byType(AppScaffold), findsOneWidget);
     });

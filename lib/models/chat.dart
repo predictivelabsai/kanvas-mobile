@@ -1,14 +1,12 @@
 class ChatRequest {
   final String message;
   final int? sessionId;
-  final String lang;
 
-  const ChatRequest({required this.message, this.sessionId, this.lang = 'en'});
+  const ChatRequest({required this.message, this.sessionId});
 
   Map<String, dynamic> toJson() => {
-    'message': message,
-    if (sessionId != null) 'session_id': sessionId,
-    'lang': lang,
+    'msg': message,
+    if (sessionId != null) 'sid': sessionId,
   };
 }
 

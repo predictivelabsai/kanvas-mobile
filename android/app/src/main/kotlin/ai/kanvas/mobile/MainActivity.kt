@@ -1,4 +1,4 @@
-package chat.carhero.carhero
+package ai.kanvas.mobile
 
 import io.flutter.embedding.android.FlutterActivity
 

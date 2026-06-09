@@ -9,14 +9,14 @@ class L10nFi extends L10n {
   L10nFi([String locale = 'fi']) : super(locale);
 
   @override
-  String get appTitle => 'CarHero';
+  String get appTitle => 'Kanvas';
 
   @override
-  String get heroTitle => 'Tekoäly-autoneuvojasi.';
+  String get heroTitle => 'Tekoäly-taideneuvonantajasi.';
 
   @override
   String get heroSubtitle =>
-      'Etsi, vertaa ja arvota premium-autoja koko Euroopassa.';
+      'Research artists, track auctions, and value artworks across the Baltic and Nordic markets.';
 
   @override
   String get signIn => 'Kirjaudu';
@@ -64,11 +64,10 @@ class L10nFi extends L10n {
   String get newChat => 'Uusi keskustelu';
 
   @override
-  String get chatPlaceholder =>
-      'Etsi autoa, vertaile malleja tai pyydä arvio...';
+  String get chatPlaceholder => 'Ask about an artist, artwork, or market...';
 
   @override
-  String get chatWelcomeTitle => 'CarHero AI-neuvoja';
+  String get chatWelcomeTitle => 'Kanvas AI-neuvoja';
 
   @override
   String get chatWelcomeBody =>
@@ -96,56 +95,13 @@ class L10nFi extends L10n {
   String get copied => 'Kopioitu!';
 
   @override
-  String get favorites => 'Suosikit';
-
-  @override
-  String get noFavorites =>
-      'Ei suosikkeja vielä. Käytä sydänpainiketta tallentaaksesi ilmoituksia.';
-
-  @override
-  String get savedSearches => 'Tallennetut haut';
-
-  @override
-  String get noSavedSearches => 'Ei tallennettuja hakuja vielä.';
-
-  @override
-  String get myGarage => 'Oma autotalli';
-
-  @override
-  String get noGarageCars => 'Ei autoja autotallissa vielä.';
-
-  @override
-  String get addCar => 'Lisää auto';
-
-  @override
-  String get marketMap => 'Markkinakartta';
-
-  @override
-  String get overview => 'Yleiskatsaus';
-
-  @override
-  String get valueMap => 'Arvokartta';
-
-  @override
-  String get priceIndex => 'Hintaindeksi';
-
-  @override
-  String get analytics => 'Analytiikka';
-
-  @override
-  String get textToSql => 'Teksti SQL:ksi + Kaaviot';
-
-  @override
-  String get runQuery => 'Suorita';
-
-  @override
   String get profile => 'Profiili ja asetukset';
 
   @override
   String get account => 'Tili';
 
   @override
-  String get searchPreferences => 'Hakuasetukset';
+  String get artPreferences => 'Art Preferences';
 
   @override
   String get notifications => 'Ilmoitukset';
@@ -187,92 +143,26 @@ class L10nFi extends L10n {
   String get sendMessage => 'Lähetä viesti';
 
   @override
-  String get exploreMarket => 'Tutustu markkinoihin';
+  String get learnMore => 'Learn More';
 
   @override
-  String get listings => 'Autoilmoitukset';
+  String get aiAgents => 'AI Agents';
 
   @override
-  String get brands => 'Merkit';
+  String get artists => 'Artists';
 
   @override
   String get countries => 'Maat';
 
   @override
-  String get sources => 'Tietolähteet';
+  String get auctionHouses => 'Auction Houses';
 
   @override
-  String get budgetRange => 'Budjettialue (EUR)';
+  String get preferredMediums => 'Preferred Mediums';
 
   @override
-  String get preferredMakes => 'Suosikkimerkit';
-
-  @override
-  String get bodyTypes => 'Korityypit';
-
-  @override
-  String get fuelTypes => 'Polttoainetyypit';
-
-  @override
-  String get transmission => 'Vaihteisto';
-
-  @override
-  String get maxMileage => 'Enimmäiskilometrit';
-
-  @override
-  String get yearRange => 'Vuosiväli';
-
-  @override
-  String get newListingsNotify => 'Uudet ilmoitukset asetusteni mukaan';
-
-  @override
-  String get priceDropsNotify => 'Hinnanalennukset suosikeissani';
+  String get preferredPeriods => 'Preferred Periods';
 
   @override
   String get weeklyDigestNotify => 'Viikoittainen markkinakatsaus';
-
-  @override
-  String get viewTco => 'Näytä TCO-erittely';
-
-  @override
-  String get totalCostOfOwnership => 'Omistamisen kokonaiskustannukset';
-
-  @override
-  String get fuelEnergy => 'Polttoaine/Energia';
-
-  @override
-  String get insurance => 'Vakuutus';
-
-  @override
-  String get maintenance => 'Huolto';
-
-  @override
-  String get depreciation => 'Arvonlasku';
-
-  @override
-  String get totalAnnual => 'Yhteensä vuodessa';
-
-  @override
-  String get totalMonthly => 'Yhteensä kuukaudessa';
-
-  @override
-  String get costPerKm => 'Hinta per km';
-
-  @override
-  String get marketValue => 'Markkina-arvo';
-
-  @override
-  String get purchasePrice => 'Ostohinta';
-
-  @override
-  String get comparables => 'vertailukelpoiset';
-
-  @override
-  String get allCountries => 'Kaikki maat';
-
-  @override
-  String get allBrands => 'Kaikki merkit';
-
-  @override
-  String get allFuels => 'Kaikki polttoaineet';
 }

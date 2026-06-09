@@ -9,14 +9,14 @@ class L10nLv extends L10n {
   L10nLv([String locale = 'lv']) : super(locale);
 
   @override
-  String get appTitle => 'CarHero';
+  String get appTitle => 'Kanvas';
 
   @override
-  String get heroTitle => 'Jūsu AI auto konsultants.';
+  String get heroTitle => 'Jūsu AI mākslas konsultants.';
 
   @override
   String get heroSubtitle =>
-      'Meklējiet, salīziniet un novērtējiet premium automašīnas visā Eiropā.';
+      'Research artists, track auctions, and value artworks across the Baltic and Nordic markets.';
 
   @override
   String get signIn => 'Pierakstīties';
@@ -64,11 +64,10 @@ class L10nLv extends L10n {
   String get newChat => 'Jauna saruna';
 
   @override
-  String get chatPlaceholder =>
-      'Meklējiet auto, salīziniet modeļus vai iegūstiet vērtējumu...';
+  String get chatPlaceholder => 'Ask about an artist, artwork, or market...';
 
   @override
-  String get chatWelcomeTitle => 'CarHero AI konsultants';
+  String get chatWelcomeTitle => 'Kanvas AI konsultants';
 
   @override
   String get chatWelcomeBody =>
@@ -96,56 +95,13 @@ class L10nLv extends L10n {
   String get copied => 'Nokopēts!';
 
   @override
-  String get favorites => 'Izlase';
-
-  @override
-  String get noFavorites =>
-      'Vēl nav izlases. Izmantojiet sirds pogu, lai saglabātu sludinājumus.';
-
-  @override
-  String get savedSearches => 'Saglabātās meklēšanas';
-
-  @override
-  String get noSavedSearches => 'Vēl nav saglabātu meklēšanu.';
-
-  @override
-  String get myGarage => 'Mana garāža';
-
-  @override
-  String get noGarageCars => 'Garāžā vēl nav automašīnu.';
-
-  @override
-  String get addCar => 'Pievienot auto';
-
-  @override
-  String get marketMap => 'Tirgus karte';
-
-  @override
-  String get overview => 'Pārskats';
-
-  @override
-  String get valueMap => 'Vērtību karte';
-
-  @override
-  String get priceIndex => 'Cenu indekss';
-
-  @override
-  String get analytics => 'Analītika';
-
-  @override
-  String get textToSql => 'Teksts uz SQL + Diagrammas';
-
-  @override
-  String get runQuery => 'Izpildīt';
-
-  @override
   String get profile => 'Profils un iestatījumi';
 
   @override
   String get account => 'Konts';
 
   @override
-  String get searchPreferences => 'Meklēšanas iestatījumi';
+  String get artPreferences => 'Art Preferences';
 
   @override
   String get notifications => 'Paziņojumi';
@@ -187,92 +143,26 @@ class L10nLv extends L10n {
   String get sendMessage => 'Nosūtīt ziņu';
 
   @override
-  String get exploreMarket => 'Izpētīt tirgu';
+  String get learnMore => 'Learn More';
 
   @override
-  String get listings => 'Sludinājumi';
+  String get aiAgents => 'AI Agents';
 
   @override
-  String get brands => 'Zīmoli';
+  String get artists => 'Artists';
 
   @override
   String get countries => 'Valstis';
 
   @override
-  String get sources => 'Datu avoti';
+  String get auctionHouses => 'Auction Houses';
 
   @override
-  String get budgetRange => 'Budžeta diapazons (EUR)';
+  String get preferredMediums => 'Preferred Mediums';
 
   @override
-  String get preferredMakes => 'Vēlamie zīmoli';
-
-  @override
-  String get bodyTypes => 'Virsbūves tipi';
-
-  @override
-  String get fuelTypes => 'Degvielas tipi';
-
-  @override
-  String get transmission => 'Pārnesumkārba';
-
-  @override
-  String get maxMileage => 'Maksimālais nobraukums';
-
-  @override
-  String get yearRange => 'Gadu diapazons';
-
-  @override
-  String get newListingsNotify => 'Jauni sludinājumi pēc manām preferencēm';
-
-  @override
-  String get priceDropsNotify => 'Cenu samazinājumi manā izlasē';
+  String get preferredPeriods => 'Preferred Periods';
 
   @override
   String get weeklyDigestNotify => 'Iknedēļas tirgus apskats';
-
-  @override
-  String get viewTco => 'Skatīt TCO sadalījumu';
-
-  @override
-  String get totalCostOfOwnership => 'Kopējās īpašumtiesību izmaksas';
-
-  @override
-  String get fuelEnergy => 'Degviela/Enerģija';
-
-  @override
-  String get insurance => 'Apdrošināšana';
-
-  @override
-  String get maintenance => 'Apkope';
-
-  @override
-  String get depreciation => 'Nolietojums';
-
-  @override
-  String get totalAnnual => 'Kopā gadā';
-
-  @override
-  String get totalMonthly => 'Kopā mēnesī';
-
-  @override
-  String get costPerKm => 'Izmaksas par km';
-
-  @override
-  String get marketValue => 'Tirgus vērtība';
-
-  @override
-  String get purchasePrice => 'Pirkuma cena';
-
-  @override
-  String get comparables => 'salīdzināmie';
-
-  @override
-  String get allCountries => 'Visas valstis';
-
-  @override
-  String get allBrands => 'Visi zīmoli';
-
-  @override
-  String get allFuels => 'Visas degvielas';
 }

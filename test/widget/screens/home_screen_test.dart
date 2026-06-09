@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:carhero/config/theme.dart';
-import 'package:carhero/screens/home_screen.dart';
+import 'package:kanvas/config/theme.dart';
+import 'package:kanvas/screens/home_screen.dart';
 
 Widget _wrapWidget(Widget child) {
   return MaterialApp(theme: AppTheme.light, home: child);
@@ -10,81 +10,63 @@ Widget _wrapWidget(Widget child) {
 
 void main() {
   group('HomeScreen', () {
-    testWidgets('renders CarHero title in hero section', (tester) async {
+    testWidgets('renders Kanvas title in hero section', (tester) async {
       await tester.pumpWidget(_wrapWidget(const HomeScreen()));
 
-      expect(find.text('CarHero'), findsOneWidget);
+      expect(find.text('Kanvas'), findsOneWidget);
     });
 
     testWidgets('renders hero subtitle', (tester) async {
       await tester.pumpWidget(_wrapWidget(const HomeScreen()));
 
-      expect(find.text('Your AI Car Advisor.'), findsOneWidget);
-    });
-
-    testWidgets('renders hero description', (tester) async {
-      await tester.pumpWidget(_wrapWidget(const HomeScreen()));
-
-      expect(
-        find.text('Search, compare, and value premium cars across Europe.'),
-        findsOneWidget,
-      );
+      expect(find.text('Your AI Art Advisor.'), findsOneWidget);
     });
 
     testWidgets('renders Sign In buttons', (tester) async {
       await tester.pumpWidget(_wrapWidget(const HomeScreen()));
 
-      // One in hero section, one in bottom CTA
       expect(find.widgetWithText(ElevatedButton, 'Sign In'), findsNWidgets(2));
     });
 
-    testWidgets('renders Explore Market button in hero section', (
-      tester,
-    ) async {
+    testWidgets('renders Learn More button in hero section', (tester) async {
       await tester.pumpWidget(_wrapWidget(const HomeScreen()));
 
-      expect(
-        find.widgetWithText(OutlinedButton, 'Explore Market'),
-        findsOneWidget,
-      );
+      expect(find.widgetWithText(OutlinedButton, 'Learn More'), findsOneWidget);
     });
 
     testWidgets('renders stats row with key numbers', (tester) async {
       await tester.pumpWidget(_wrapWidget(const HomeScreen()));
 
-      expect(find.text('50,000+'), findsOneWidget);
-      expect(find.text('Listings'), findsOneWidget);
-      expect(find.text('12'), findsOneWidget);
-      expect(find.text('Brands'), findsOneWidget);
-      expect(find.text('5+'), findsOneWidget);
-      expect(find.text('Countries'), findsOneWidget);
       expect(find.text('8'), findsOneWidget);
-      expect(find.text('Sources'), findsOneWidget);
+      expect(find.text('AI Agents'), findsOneWidget);
+      expect(find.text('1000+'), findsOneWidget);
+      expect(find.text('Artists'), findsOneWidget);
+      expect(find.text('6'), findsOneWidget);
+      expect(find.text('Countries'), findsOneWidget);
     });
 
-    testWidgets('renders What CarHero Does section', (tester) async {
+    testWidgets('renders What Kanvas Does section', (tester) async {
       await tester.pumpWidget(_wrapWidget(const HomeScreen()));
 
       await tester.scrollUntilVisible(
-        find.text('What CarHero Does'),
+        find.text('What Kanvas Does'),
         200,
         scrollable: find.byType(Scrollable).first,
       );
 
-      expect(find.text('What CarHero Does'), findsOneWidget);
+      expect(find.text('What Kanvas Does'), findsOneWidget);
     });
 
-    testWidgets('renders Advisory feature card', (tester) async {
+    testWidgets('renders Artist Research feature card', (tester) async {
       await tester.pumpWidget(_wrapWidget(const HomeScreen()));
 
       await tester.scrollUntilVisible(
-        find.text('Advisory'),
+        find.text('Artist Research'),
         200,
         scrollable: find.byType(Scrollable).first,
       );
 
-      expect(find.text('Advisory'), findsOneWidget);
-      expect(find.textContaining('Chat with our AI advisor'), findsOneWidget);
+      expect(find.text('Artist Research'), findsOneWidget);
     });
 
     testWidgets('renders Market Intelligence feature card', (tester) async {
@@ -97,20 +79,6 @@ void main() {
       );
 
       expect(find.text('Market Intelligence'), findsOneWidget);
-      expect(find.textContaining('Real-time pricing data'), findsOneWidget);
-    });
-
-    testWidgets('renders Valuation feature card', (tester) async {
-      await tester.pumpWidget(_wrapWidget(const HomeScreen()));
-
-      await tester.scrollUntilVisible(
-        find.text('Valuation'),
-        200,
-        scrollable: find.byType(Scrollable).first,
-      );
-
-      expect(find.text('Valuation'), findsOneWidget);
-      expect(find.textContaining('data-driven valuations'), findsOneWidget);
     });
 
     testWidgets('renders How it Works section', (tester) async {
@@ -129,66 +97,49 @@ void main() {
       await tester.pumpWidget(_wrapWidget(const HomeScreen()));
 
       await tester.scrollUntilVisible(
-        find.text('Tell Us What You Want'),
+        find.text('Ask About Art'),
         200,
         scrollable: find.byType(Scrollable).first,
       );
-
-      expect(find.text('Tell Us What You Want'), findsOneWidget);
+      expect(find.text('Ask About Art'), findsOneWidget);
 
       await tester.scrollUntilVisible(
-        find.text('We Search the Market'),
+        find.text('AI Agents Research'),
         200,
         scrollable: find.byType(Scrollable).first,
       );
-
-      expect(find.text('We Search the Market'), findsOneWidget);
+      expect(find.text('AI Agents Research'), findsOneWidget);
 
       await tester.scrollUntilVisible(
-        find.text('Get Expert Advice'),
+        find.text('Get Expert Insights'),
         200,
         scrollable: find.byType(Scrollable).first,
       );
-
-      expect(find.text('Get Expert Advice'), findsOneWidget);
+      expect(find.text('Get Expert Insights'), findsOneWidget);
     });
 
-    testWidgets('renders Premium Brands section', (tester) async {
+    testWidgets('renders Specialist AI Agents section', (tester) async {
       await tester.pumpWidget(_wrapWidget(const HomeScreen()));
 
       await tester.scrollUntilVisible(
-        find.text('Premium Brands'),
+        find.text('Specialist AI Agents'),
         200,
         scrollable: find.byType(Scrollable).first,
       );
 
-      expect(find.text('Premium Brands'), findsOneWidget);
+      expect(find.text('Specialist AI Agents'), findsOneWidget);
     });
 
     testWidgets('renders bottom CTA section', (tester) async {
       await tester.pumpWidget(_wrapWidget(const HomeScreen()));
 
       await tester.scrollUntilVisible(
-        find.text('Ready to find your next car?'),
+        find.text('Ready to explore the art market?'),
         200,
         scrollable: find.byType(Scrollable).first,
       );
 
-      expect(find.text('Ready to find your next car?'), findsOneWidget);
-      expect(find.textContaining('Join thousands of drivers'), findsOneWidget);
-    });
-
-    testWidgets('renders bottom CTA Sign In button', (tester) async {
-      await tester.pumpWidget(_wrapWidget(const HomeScreen()));
-
-      await tester.scrollUntilVisible(
-        find.text('Ready to find your next car?'),
-        200,
-        scrollable: find.byType(Scrollable).first,
-      );
-
-      // Two Sign In buttons: one in hero, one in bottom CTA
-      expect(find.text('Sign In'), findsNWidgets(2));
+      expect(find.text('Ready to explore the art market?'), findsOneWidget);
     });
 
     testWidgets('renders About and Contact links in footer', (tester) async {
@@ -202,34 +153,6 @@ void main() {
 
       expect(find.text('About'), findsOneWidget);
       expect(find.text('Contact'), findsOneWidget);
-    });
-
-    testWidgets('renders step numbers 1, 2, 3', (tester) async {
-      await tester.pumpWidget(_wrapWidget(const HomeScreen()));
-
-      await tester.scrollUntilVisible(
-        find.text('1'),
-        200,
-        scrollable: find.byType(Scrollable).first,
-      );
-
-      expect(find.text('1'), findsOneWidget);
-
-      await tester.scrollUntilVisible(
-        find.text('2'),
-        200,
-        scrollable: find.byType(Scrollable).first,
-      );
-
-      expect(find.text('2'), findsOneWidget);
-
-      await tester.scrollUntilVisible(
-        find.text('3'),
-        200,
-        scrollable: find.byType(Scrollable).first,
-      );
-
-      expect(find.text('3'), findsOneWidget);
     });
 
     testWidgets('renders four stat cards', (tester) async {

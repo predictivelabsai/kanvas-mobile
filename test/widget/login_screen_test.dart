@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:carhero/config/theme.dart';
-import 'package:carhero/screens/auth/login_screen.dart';
+import 'package:kanvas/config/theme.dart';
+import 'package:kanvas/screens/auth/login_screen.dart';
 
 Widget _wrapWidget(Widget child) {
   return ProviderScope(
@@ -48,11 +48,11 @@ void main() {
       expect(find.text('Register'), findsOneWidget);
     });
 
-    testWidgets('renders CarHero branding', (tester) async {
+    testWidgets('renders Kanvas branding', (tester) async {
       await tester.pumpWidget(_wrapWidget(const LoginScreen()));
 
-      expect(find.text('CarHero'), findsOneWidget);
-      expect(find.text('AI Car Advisor'), findsOneWidget);
+      expect(find.text('Kanvas'), findsOneWidget);
+      expect(find.text('AI Art Advisor'), findsOneWidget);
     });
 
     testWidgets('shows validation error on empty email', (tester) async {

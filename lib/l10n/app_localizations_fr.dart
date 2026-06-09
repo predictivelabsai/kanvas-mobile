@@ -9,14 +9,14 @@ class L10nFr extends L10n {
   L10nFr([String locale = 'fr']) : super(locale);
 
   @override
-  String get appTitle => 'CarHero';
+  String get appTitle => 'Kanvas';
 
   @override
-  String get heroTitle => 'Votre conseiller automobile IA.';
+  String get heroTitle => 'Votre conseiller artistique IA.';
 
   @override
   String get heroSubtitle =>
-      'Recherchez, comparez et évaluez des voitures premium en Europe.';
+      'Research artists, track auctions, and value artworks across the Baltic and Nordic markets.';
 
   @override
   String get signIn => 'Se connecter';
@@ -64,11 +64,10 @@ class L10nFr extends L10n {
   String get newChat => 'Nouveau chat';
 
   @override
-  String get chatPlaceholder =>
-      'Recherchez une voiture, comparez des modèles ou obtenez une évaluation...';
+  String get chatPlaceholder => 'Ask about an artist, artwork, or market...';
 
   @override
-  String get chatWelcomeTitle => 'CarHero Conseiller IA';
+  String get chatWelcomeTitle => 'Kanvas Conseiller IA';
 
   @override
   String get chatWelcomeBody =>
@@ -96,56 +95,13 @@ class L10nFr extends L10n {
   String get copied => 'Copié !';
 
   @override
-  String get favorites => 'Favoris';
-
-  @override
-  String get noFavorites =>
-      'Pas encore de favoris. Utilisez le bouton cœur pour sauvegarder des annonces.';
-
-  @override
-  String get savedSearches => 'Recherches sauvegardées';
-
-  @override
-  String get noSavedSearches => 'Pas encore de recherches sauvegardées.';
-
-  @override
-  String get myGarage => 'Mon garage';
-
-  @override
-  String get noGarageCars => 'Pas encore de voitures dans le garage.';
-
-  @override
-  String get addCar => 'Ajouter une voiture';
-
-  @override
-  String get marketMap => 'Carte du marché';
-
-  @override
-  String get overview => 'Aperçu';
-
-  @override
-  String get valueMap => 'Carte des valeurs';
-
-  @override
-  String get priceIndex => 'Indice des prix';
-
-  @override
-  String get analytics => 'Analytique';
-
-  @override
-  String get textToSql => 'Texte vers SQL + Graphiques';
-
-  @override
-  String get runQuery => 'Exécuter';
-
-  @override
   String get profile => 'Profil et préférences';
 
   @override
   String get account => 'Compte';
 
   @override
-  String get searchPreferences => 'Préférences de recherche';
+  String get artPreferences => 'Art Preferences';
 
   @override
   String get notifications => 'Notifications';
@@ -187,92 +143,26 @@ class L10nFr extends L10n {
   String get sendMessage => 'Envoyer un message';
 
   @override
-  String get exploreMarket => 'Explorer le marché';
+  String get learnMore => 'Learn More';
 
   @override
-  String get listings => 'Annonces';
+  String get aiAgents => 'AI Agents';
 
   @override
-  String get brands => 'Marques';
+  String get artists => 'Artists';
 
   @override
   String get countries => 'Pays';
 
   @override
-  String get sources => 'Sources de données';
+  String get auctionHouses => 'Auction Houses';
 
   @override
-  String get budgetRange => 'Budget (EUR)';
+  String get preferredMediums => 'Preferred Mediums';
 
   @override
-  String get preferredMakes => 'Marques préférées';
-
-  @override
-  String get bodyTypes => 'Types de carrosserie';
-
-  @override
-  String get fuelTypes => 'Types de carburant';
-
-  @override
-  String get transmission => 'Transmission';
-
-  @override
-  String get maxMileage => 'Kilométrage maximum';
-
-  @override
-  String get yearRange => 'Plage d\'années';
-
-  @override
-  String get newListingsNotify => 'Nouvelles annonces selon mes préférences';
-
-  @override
-  String get priceDropsNotify => 'Baisses de prix sur mes favoris';
+  String get preferredPeriods => 'Preferred Periods';
 
   @override
   String get weeklyDigestNotify => 'Résumé hebdomadaire du marché';
-
-  @override
-  String get viewTco => 'Voir le coût total';
-
-  @override
-  String get totalCostOfOwnership => 'Coût total de possession';
-
-  @override
-  String get fuelEnergy => 'Carburant/Énergie';
-
-  @override
-  String get insurance => 'Assurance';
-
-  @override
-  String get maintenance => 'Entretien';
-
-  @override
-  String get depreciation => 'Dépréciation';
-
-  @override
-  String get totalAnnual => 'Total annuel';
-
-  @override
-  String get totalMonthly => 'Total mensuel';
-
-  @override
-  String get costPerKm => 'Coût par km';
-
-  @override
-  String get marketValue => 'Valeur marchande';
-
-  @override
-  String get purchasePrice => 'Prix d\'achat';
-
-  @override
-  String get comparables => 'comparables';
-
-  @override
-  String get allCountries => 'Tous les pays';
-
-  @override
-  String get allBrands => 'Toutes les marques';
-
-  @override
-  String get allFuels => 'Tous les carburants';
 }

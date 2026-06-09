@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:carhero/models/session.dart';
+import 'package:kanvas/models/session.dart';
 
 void main() {
   group('SessionSummary', () {
@@ -87,13 +87,13 @@ void main() {
     test('fromJson parses correctly', () {
       final json = {
         'token': 'abc123',
-        'url': 'https://carhero.chat/shared/abc123',
+        'url': 'https://kanvas.ai/shared/abc123',
       };
 
       final share = ShareResponse.fromJson(json);
 
       expect(share.token, 'abc123');
-      expect(share.url, 'https://carhero.chat/shared/abc123');
+      expect(share.url, 'https://kanvas.ai/shared/abc123');
     });
   });
 }

@@ -3,18 +3,18 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:carhero/config/theme.dart';
-import 'package:carhero/models/auth.dart';
-import 'package:carhero/models/agent.dart';
-import 'package:carhero/models/session.dart';
-import 'package:carhero/providers/auth_provider.dart';
-import 'package:carhero/providers/agent_provider.dart';
-import 'package:carhero/providers/session_provider.dart';
-import 'package:carhero/screens/auth/login_screen.dart';
-import 'package:carhero/screens/auth/register_screen.dart';
-import 'package:carhero/screens/auth/forgot_password_screen.dart';
-import 'package:carhero/screens/chat_screen.dart';
-import 'package:carhero/screens/app_scaffold.dart';
+import 'package:kanvas/config/theme.dart';
+import 'package:kanvas/models/auth.dart';
+import 'package:kanvas/models/agent.dart';
+import 'package:kanvas/models/session.dart';
+import 'package:kanvas/providers/auth_provider.dart';
+import 'package:kanvas/providers/agent_provider.dart';
+import 'package:kanvas/providers/session_provider.dart';
+import 'package:kanvas/screens/auth/login_screen.dart';
+import 'package:kanvas/screens/auth/register_screen.dart';
+import 'package:kanvas/screens/auth/forgot_password_screen.dart';
+import 'package:kanvas/screens/chat_screen.dart';
+import 'package:kanvas/screens/app_scaffold.dart';
 
 /// A controllable AuthNotifier for tests. Simulates login/register/logout
 /// without hitting a real API or secure storage.
@@ -99,7 +99,7 @@ void main() {
       await tester.pumpWidget(_buildTestApp());
       await tester.pumpAndSettle();
 
-      expect(find.text('CarHero'), findsOneWidget);
+      expect(find.text('Kanvas'), findsOneWidget);
       expect(find.text('Sign In'), findsOneWidget);
       expect(find.text('Sign in with Google'), findsOneWidget);
       expect(find.text('Forgot password?'), findsOneWidget);

@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:carhero/models/session.dart';
-import 'package:carhero/services/session_service.dart';
-import 'package:carhero/providers/auth_provider.dart';
+import 'package:kanvas/models/session.dart';
+import 'package:kanvas/services/session_service.dart';
+import 'package:kanvas/providers/auth_provider.dart';
 
 final sessionServiceProvider = Provider<SessionService>((ref) {
   return SessionService(ref.read(apiClientProvider));

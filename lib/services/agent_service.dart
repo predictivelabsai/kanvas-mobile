@@ -1,5 +1,5 @@
-import 'package:carhero/models/agent.dart';
-import 'package:carhero/services/api_client.dart';
+import 'package:kanvas/models/agent.dart';
+import 'package:kanvas/services/api_client.dart';
 
 class AgentService {
   final ApiClient _client;

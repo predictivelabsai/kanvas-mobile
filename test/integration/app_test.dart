@@ -3,16 +3,16 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:carhero/config/theme.dart';
-import 'package:carhero/models/auth.dart';
-import 'package:carhero/models/agent.dart';
-import 'package:carhero/models/session.dart';
-import 'package:carhero/providers/auth_provider.dart';
-import 'package:carhero/providers/agent_provider.dart';
-import 'package:carhero/providers/session_provider.dart';
-import 'package:carhero/screens/auth/login_screen.dart';
-import 'package:carhero/screens/chat_screen.dart';
-import 'package:carhero/screens/app_scaffold.dart';
+import 'package:kanvas/config/theme.dart';
+import 'package:kanvas/models/auth.dart';
+import 'package:kanvas/models/agent.dart';
+import 'package:kanvas/models/session.dart';
+import 'package:kanvas/providers/auth_provider.dart';
+import 'package:kanvas/providers/agent_provider.dart';
+import 'package:kanvas/providers/session_provider.dart';
+import 'package:kanvas/screens/auth/login_screen.dart';
+import 'package:kanvas/screens/chat_screen.dart';
+import 'package:kanvas/screens/app_scaffold.dart';
 
 /// Builds a test app with full routing and auth state controlled by [isLoggedIn].
 ///
@@ -86,9 +86,9 @@ void main() {
       await tester.pumpAndSettle();
 
       // Login screen should be visible
-      expect(find.text('CarHero'), findsOneWidget);
+      expect(find.text('Kanvas'), findsOneWidget);
       expect(find.text('Sign In'), findsOneWidget);
-      expect(find.text('AI Car Advisor'), findsOneWidget);
+      expect(find.text('AI Art Advisor'), findsOneWidget);
     });
 
     testWidgets('shows chat screen when authenticated', (tester) async {
@@ -96,9 +96,9 @@ void main() {
       await tester.pumpAndSettle();
 
       // Chat screen should be visible (with the app bar title and input bar)
-      expect(find.text('CarHero AI'), findsOneWidget);
+      expect(find.text('Kanvas AI'), findsOneWidget);
       // The welcome message should be visible since there are no messages
-      expect(find.text('CarHero AI Advisor'), findsOneWidget);
+      expect(find.text('Kanvas AI Advisor'), findsOneWidget);
     });
 
     testWidgets('authenticated app shows chat screen with sidebar access', (
@@ -108,7 +108,7 @@ void main() {
       await tester.pumpAndSettle();
 
       // Chat screen should be visible with drawer access via menu button
-      expect(find.text('CarHero AI'), findsOneWidget);
+      expect(find.text('Kanvas AI'), findsOneWidget);
       expect(find.byIcon(Icons.menu), findsOneWidget);
     });
 
@@ -155,7 +155,10 @@ void main() {
       await tester.pumpWidget(_buildTestApp(isLoggedIn: true));
       await tester.pumpAndSettle();
 
-      expect(find.text('Search for a car, compare models...'), findsOneWidget);
+      expect(
+        find.text('Ask about an artist, artwork, or market...'),
+        findsOneWidget,
+      );
     });
 
     testWidgets('chat screen shows welcome prompts when no messages', (

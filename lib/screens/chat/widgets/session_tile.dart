@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:carhero/config/theme.dart';
-import 'package:carhero/models/session.dart';
+import 'package:kanvas/config/theme.dart';
+import 'package:kanvas/models/session.dart';
 
 class SessionTile extends StatelessWidget {
   final SessionSummary session;

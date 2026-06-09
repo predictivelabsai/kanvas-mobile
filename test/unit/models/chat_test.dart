@@ -1,23 +1,22 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:carhero/models/chat.dart';
+import 'package:kanvas/models/chat.dart';
 
 void main() {
   group('ChatRequest', () {
     test('toJson includes all fields', () {
-      const req = ChatRequest(message: 'Find BMWs', sessionId: 5, lang: 'de');
+      const req = ChatRequest(message: 'Find artist info', sessionId: 5);
       final json = req.toJson();
 
-      expect(json['message'], 'Find BMWs');
-      expect(json['session_id'], 5);
-      expect(json['lang'], 'de');
+      expect(json['msg'], 'Find artist info');
+      expect(json['sid'], 5);
     });
 
     test('toJson omits null sessionId', () {
       const req = ChatRequest(message: 'Hello');
       final json = req.toJson();
 
-      expect(json.containsKey('session_id'), false);
-      expect(json['lang'], 'en');
+      expect(json.containsKey('sid'), false);
+      expect(json['msg'], 'Hello');
     });
   });
 

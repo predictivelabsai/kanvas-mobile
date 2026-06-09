@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:carhero/config/api_config.dart';
+import 'package:kanvas/config/api_config.dart';
 
 class UnauthorizedException implements Exception {
   final String message;

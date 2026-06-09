@@ -120,19 +120,19 @@ abstract class L10n {
   /// No description provided for @appTitle.
   ///
   /// In en, this message translates to:
-  /// **'CarHero'**
+  /// **'Kanvas'**
   String get appTitle;
 
   /// No description provided for @heroTitle.
   ///
   /// In en, this message translates to:
-  /// **'Your AI Car Advisor.'**
+  /// **'Your AI Art Advisor.'**
   String get heroTitle;
 
   /// No description provided for @heroSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Search, compare, and value premium cars across Europe.'**
+  /// **'Research artists, track auctions, and value artworks across the Baltic and Nordic markets.'**
   String get heroSubtitle;
 
   /// No description provided for @signIn.
@@ -228,19 +228,19 @@ abstract class L10n {
   /// No description provided for @chatPlaceholder.
   ///
   /// In en, this message translates to:
-  /// **'Search for a car, compare models, or get a valuation...'**
+  /// **'Ask about an artist, artwork, or market...'**
   String get chatPlaceholder;
 
   /// No description provided for @chatWelcomeTitle.
   ///
   /// In en, this message translates to:
-  /// **'CarHero AI Advisor'**
+  /// **'Kanvas AI Advisor'**
   String get chatWelcomeTitle;
 
   /// No description provided for @chatWelcomeBody.
   ///
   /// In en, this message translates to:
-  /// **'Ask about car models, market trends, valuations, or get buying advice.'**
+  /// **'Ask about artists, auction trends, valuations, or get market insights.'**
   String get chatWelcomeBody;
 
   /// No description provided for @thinking.
@@ -285,90 +285,6 @@ abstract class L10n {
   /// **'Copied!'**
   String get copied;
 
-  /// No description provided for @favorites.
-  ///
-  /// In en, this message translates to:
-  /// **'Favorites'**
-  String get favorites;
-
-  /// No description provided for @noFavorites.
-  ///
-  /// In en, this message translates to:
-  /// **'No favorites yet. Use the heart button on listings to save them.'**
-  String get noFavorites;
-
-  /// No description provided for @savedSearches.
-  ///
-  /// In en, this message translates to:
-  /// **'Saved Searches'**
-  String get savedSearches;
-
-  /// No description provided for @noSavedSearches.
-  ///
-  /// In en, this message translates to:
-  /// **'No saved searches yet.'**
-  String get noSavedSearches;
-
-  /// No description provided for @myGarage.
-  ///
-  /// In en, this message translates to:
-  /// **'My Garage'**
-  String get myGarage;
-
-  /// No description provided for @noGarageCars.
-  ///
-  /// In en, this message translates to:
-  /// **'No cars in your garage yet.'**
-  String get noGarageCars;
-
-  /// No description provided for @addCar.
-  ///
-  /// In en, this message translates to:
-  /// **'Add Car'**
-  String get addCar;
-
-  /// No description provided for @marketMap.
-  ///
-  /// In en, this message translates to:
-  /// **'Market Map'**
-  String get marketMap;
-
-  /// No description provided for @overview.
-  ///
-  /// In en, this message translates to:
-  /// **'Overview'**
-  String get overview;
-
-  /// No description provided for @valueMap.
-  ///
-  /// In en, this message translates to:
-  /// **'Value Map'**
-  String get valueMap;
-
-  /// No description provided for @priceIndex.
-  ///
-  /// In en, this message translates to:
-  /// **'Price Index'**
-  String get priceIndex;
-
-  /// No description provided for @analytics.
-  ///
-  /// In en, this message translates to:
-  /// **'Analytics'**
-  String get analytics;
-
-  /// No description provided for @textToSql.
-  ///
-  /// In en, this message translates to:
-  /// **'Text to SQL + Charts'**
-  String get textToSql;
-
-  /// No description provided for @runQuery.
-  ///
-  /// In en, this message translates to:
-  /// **'Run'**
-  String get runQuery;
-
   /// No description provided for @profile.
   ///
   /// In en, this message translates to:
@@ -381,11 +297,11 @@ abstract class L10n {
   /// **'Account'**
   String get account;
 
-  /// No description provided for @searchPreferences.
+  /// No description provided for @artPreferences.
   ///
   /// In en, this message translates to:
-  /// **'Search Preferences'**
-  String get searchPreferences;
+  /// **'Art Preferences'**
+  String get artPreferences;
 
   /// No description provided for @notifications.
   ///
@@ -465,23 +381,23 @@ abstract class L10n {
   /// **'Send Message'**
   String get sendMessage;
 
-  /// No description provided for @exploreMarket.
+  /// No description provided for @learnMore.
   ///
   /// In en, this message translates to:
-  /// **'Explore Market'**
-  String get exploreMarket;
+  /// **'Learn More'**
+  String get learnMore;
 
-  /// No description provided for @listings.
+  /// No description provided for @aiAgents.
   ///
   /// In en, this message translates to:
-  /// **'Listings'**
-  String get listings;
+  /// **'AI Agents'**
+  String get aiAgents;
 
-  /// No description provided for @brands.
+  /// No description provided for @artists.
   ///
   /// In en, this message translates to:
-  /// **'Brands'**
-  String get brands;
+  /// **'Artists'**
+  String get artists;
 
   /// No description provided for @countries.
   ///
@@ -489,161 +405,29 @@ abstract class L10n {
   /// **'Countries'**
   String get countries;
 
-  /// No description provided for @sources.
+  /// No description provided for @auctionHouses.
   ///
   /// In en, this message translates to:
-  /// **'Sources'**
-  String get sources;
+  /// **'Auction Houses'**
+  String get auctionHouses;
 
-  /// No description provided for @budgetRange.
+  /// No description provided for @preferredMediums.
   ///
   /// In en, this message translates to:
-  /// **'Budget Range (EUR)'**
-  String get budgetRange;
+  /// **'Preferred Mediums'**
+  String get preferredMediums;
 
-  /// No description provided for @preferredMakes.
+  /// No description provided for @preferredPeriods.
   ///
   /// In en, this message translates to:
-  /// **'Preferred Makes'**
-  String get preferredMakes;
-
-  /// No description provided for @bodyTypes.
-  ///
-  /// In en, this message translates to:
-  /// **'Body Types'**
-  String get bodyTypes;
-
-  /// No description provided for @fuelTypes.
-  ///
-  /// In en, this message translates to:
-  /// **'Fuel Types'**
-  String get fuelTypes;
-
-  /// No description provided for @transmission.
-  ///
-  /// In en, this message translates to:
-  /// **'Transmission'**
-  String get transmission;
-
-  /// No description provided for @maxMileage.
-  ///
-  /// In en, this message translates to:
-  /// **'Max Mileage'**
-  String get maxMileage;
-
-  /// No description provided for @yearRange.
-  ///
-  /// In en, this message translates to:
-  /// **'Year Range'**
-  String get yearRange;
-
-  /// No description provided for @newListingsNotify.
-  ///
-  /// In en, this message translates to:
-  /// **'New listings matching my preferences'**
-  String get newListingsNotify;
-
-  /// No description provided for @priceDropsNotify.
-  ///
-  /// In en, this message translates to:
-  /// **'Price drops on my favorites'**
-  String get priceDropsNotify;
+  /// **'Preferred Periods'**
+  String get preferredPeriods;
 
   /// No description provided for @weeklyDigestNotify.
   ///
   /// In en, this message translates to:
-  /// **'Weekly market digest'**
+  /// **'Weekly art market digest'**
   String get weeklyDigestNotify;
-
-  /// No description provided for @viewTco.
-  ///
-  /// In en, this message translates to:
-  /// **'View TCO Breakdown'**
-  String get viewTco;
-
-  /// No description provided for @totalCostOfOwnership.
-  ///
-  /// In en, this message translates to:
-  /// **'Total Cost of Ownership'**
-  String get totalCostOfOwnership;
-
-  /// No description provided for @fuelEnergy.
-  ///
-  /// In en, this message translates to:
-  /// **'Fuel/Energy'**
-  String get fuelEnergy;
-
-  /// No description provided for @insurance.
-  ///
-  /// In en, this message translates to:
-  /// **'Insurance'**
-  String get insurance;
-
-  /// No description provided for @maintenance.
-  ///
-  /// In en, this message translates to:
-  /// **'Maintenance'**
-  String get maintenance;
-
-  /// No description provided for @depreciation.
-  ///
-  /// In en, this message translates to:
-  /// **'Depreciation'**
-  String get depreciation;
-
-  /// No description provided for @totalAnnual.
-  ///
-  /// In en, this message translates to:
-  /// **'Total Annual'**
-  String get totalAnnual;
-
-  /// No description provided for @totalMonthly.
-  ///
-  /// In en, this message translates to:
-  /// **'Total Monthly'**
-  String get totalMonthly;
-
-  /// No description provided for @costPerKm.
-  ///
-  /// In en, this message translates to:
-  /// **'Cost per km'**
-  String get costPerKm;
-
-  /// No description provided for @marketValue.
-  ///
-  /// In en, this message translates to:
-  /// **'Market Value'**
-  String get marketValue;
-
-  /// No description provided for @purchasePrice.
-  ///
-  /// In en, this message translates to:
-  /// **'Purchase Price'**
-  String get purchasePrice;
-
-  /// No description provided for @comparables.
-  ///
-  /// In en, this message translates to:
-  /// **'comparables'**
-  String get comparables;
-
-  /// No description provided for @allCountries.
-  ///
-  /// In en, this message translates to:
-  /// **'All Countries'**
-  String get allCountries;
-
-  /// No description provided for @allBrands.
-  ///
-  /// In en, this message translates to:
-  /// **'All Brands'**
-  String get allBrands;
-
-  /// No description provided for @allFuels.
-  ///
-  /// In en, this message translates to:
-  /// **'All Fuels'**
-  String get allFuels;
 }
 
 class _L10nDelegate extends LocalizationsDelegate<L10n> {

@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:carhero/models/auth.dart';
+import 'package:kanvas/models/auth.dart';
 
 void main() {
   group('AuthResponse', () {

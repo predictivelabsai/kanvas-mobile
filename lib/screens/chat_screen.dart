@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:carhero/config/theme.dart';
-import 'package:carhero/models/chat.dart';
-import 'package:carhero/providers/chat_provider.dart';
-import 'package:carhero/providers/locale_provider.dart';
-import 'package:carhero/providers/session_provider.dart';
-import 'package:carhero/screens/chat/widgets/chat_sidebar.dart';
-import 'package:carhero/screens/chat/widgets/chat_input_bar.dart';
-import 'package:carhero/screens/chat/widgets/chat_message_bubble.dart';
-import 'package:carhero/screens/chat/widgets/streaming_text.dart';
-import 'package:carhero/screens/chat/widgets/tool_execution_card.dart';
-import 'package:carhero/screens/chat/widgets/welcome_message.dart';
-import 'package:carhero/screens/chat/widgets/listing_card.dart';
+import 'package:kanvas/config/theme.dart';
+import 'package:kanvas/models/chat.dart';
+import 'package:kanvas/providers/chat_provider.dart';
+import 'package:kanvas/providers/session_provider.dart';
+import 'package:kanvas/screens/chat/widgets/chat_sidebar.dart';
+import 'package:kanvas/screens/chat/widgets/chat_input_bar.dart';
+import 'package:kanvas/screens/chat/widgets/chat_message_bubble.dart';
+import 'package:kanvas/screens/chat/widgets/streaming_text.dart';
+import 'package:kanvas/screens/chat/widgets/tool_execution_card.dart';
+import 'package:kanvas/screens/chat/widgets/welcome_message.dart';
 import 'package:share_plus/share_plus.dart';
 
 class ChatScreen extends ConsumerStatefulWidget {
@@ -122,10 +120,6 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                 itemCount: artifacts.length,
                 itemBuilder: (ctx, i) {
                   final artifact = artifacts[i];
-                  if (artifact.kind == 'listing' ||
-                      artifact.kind == 'listings') {
-                    return _buildListingArtifact(artifact);
-                  }
                   return Card(
                     margin: const EdgeInsets.only(bottom: 8),
                     child: Padding(
@@ -160,34 +154,6 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
         ),
       ),
     );
-  }
-
-  Widget _buildListingArtifact(Artifact artifact) {
-    final data = artifact.data;
-    // Could be a single listing or a list
-    if (data.containsKey('listings')) {
-      final listings = data['listings'] as List<dynamic>? ?? [];
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          if (artifact.title != null)
-            Padding(
-              padding: const EdgeInsets.only(bottom: 8),
-              child: Text(
-                artifact.title!,
-                style: const TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 15,
-                ),
-              ),
-            ),
-          ...listings.map(
-            (l) => ListingCard.fromJson(l as Map<String, dynamic>),
-          ),
-        ],
-      );
-    }
-    return ListingCard.fromJson(data);
   }
 
   Future<void> _shareSession() async {
@@ -240,7 +206,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
           ),
         ),
         title: Text(
-          chatState.currentAgent?.name ?? 'CarHero AI',
+          chatState.currentAgent?.name ?? 'Kanvas AI',
           overflow: TextOverflow.ellipsis,
         ),
         actions: [
@@ -260,18 +226,14 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                 ? _buildMessageList(chatState)
                 : WelcomeMessage(
                     onPromptTap: (prompt) {
-                      final lang = ref.read(localeProvider);
-                      ref
-                          .read(chatProvider.notifier)
-                          .sendMessage(prompt, lang: lang);
+                      ref.read(chatProvider.notifier).sendMessage(prompt);
                     },
                   ),
           ),
           ChatInputBar(
             isStreaming: chatState.isStreaming,
             onSend: (text) {
-              final lang = ref.read(localeProvider);
-              ref.read(chatProvider.notifier).sendMessage(text, lang: lang);
+              ref.read(chatProvider.notifier).sendMessage(text);
             },
           ),
         ],

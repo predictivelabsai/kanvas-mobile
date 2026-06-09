@@ -1,5 +1,5 @@
-import 'package:carhero/models/profile.dart';
-import 'package:carhero/services/api_client.dart';
+import 'package:kanvas/models/profile.dart';
+import 'package:kanvas/services/api_client.dart';
 
 class ProfileService {
   final ApiClient _client;

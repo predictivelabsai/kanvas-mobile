@@ -9,14 +9,14 @@ class L10nEt extends L10n {
   L10nEt([String locale = 'et']) : super(locale);
 
   @override
-  String get appTitle => 'CarHero';
+  String get appTitle => 'Kanvas';
 
   @override
-  String get heroTitle => 'Sinu tehisintellektist autonõustaja.';
+  String get heroTitle => 'Sinu tehisintellektist kunstinõustaja.';
 
   @override
   String get heroSubtitle =>
-      'Otsi, võrdle ja hinda premium autosid üle Euroopa.';
+      'Uuri kunstnikke, jälgi oksjoneid ja hinda kunstiteoseid Balti ja Põhjamaade turgudel.';
 
   @override
   String get signIn => 'Logi sisse';
@@ -64,15 +64,14 @@ class L10nEt extends L10n {
   String get newChat => 'Uus vestlus';
 
   @override
-  String get chatPlaceholder =>
-      'Otsi autot, võrdle mudeleid või saa hindamine...';
+  String get chatPlaceholder => 'Küsi kunstniku, teose või turu kohta...';
 
   @override
-  String get chatWelcomeTitle => 'CarHero tehisintellekt-nõustaja';
+  String get chatWelcomeTitle => 'Kanvas tehisintellekt-nõustaja';
 
   @override
   String get chatWelcomeBody =>
-      'Küsi automudelite, turutrendide, hindamiste või ostunõu kohta.';
+      'Küsi kunstnike, oksjonitrendide, hindamiste või turuülevaadete kohta.';
 
   @override
   String get thinking => 'Mõtleb';
@@ -96,56 +95,13 @@ class L10nEt extends L10n {
   String get copied => 'Kopeeritud!';
 
   @override
-  String get favorites => 'Lemmikud';
-
-  @override
-  String get noFavorites =>
-      'Lemmikuid pole veel. Kasuta südame nuppu kuulutuste salvestamiseks.';
-
-  @override
-  String get savedSearches => 'Salvestatud otsingud';
-
-  @override
-  String get noSavedSearches => 'Salvestatud otsinguid pole veel.';
-
-  @override
-  String get myGarage => 'Minu garaaž';
-
-  @override
-  String get noGarageCars => 'Garaažis pole veel autosid.';
-
-  @override
-  String get addCar => 'Lisa auto';
-
-  @override
-  String get marketMap => 'Turukaart';
-
-  @override
-  String get overview => 'Ülevaade';
-
-  @override
-  String get valueMap => 'Väärtuskaart';
-
-  @override
-  String get priceIndex => 'Hinnaindeks';
-
-  @override
-  String get analytics => 'Analüütika';
-
-  @override
-  String get textToSql => 'Tekst SQL-iks + graafikud';
-
-  @override
-  String get runQuery => 'Käivita';
-
-  @override
   String get profile => 'Profiil ja eelistused';
 
   @override
   String get account => 'Konto';
 
   @override
-  String get searchPreferences => 'Otsingueelistused';
+  String get artPreferences => 'Kunstieelistused';
 
   @override
   String get notifications => 'Teavitused';
@@ -187,92 +143,26 @@ class L10nEt extends L10n {
   String get sendMessage => 'Saada sõnum';
 
   @override
-  String get exploreMarket => 'Avasta turg';
+  String get learnMore => 'Loe lähemalt';
 
   @override
-  String get listings => 'Kuulutused';
+  String get aiAgents => 'Tehisintellekt-agendid';
 
   @override
-  String get brands => 'Brändid';
+  String get artists => 'Kunstnikud';
 
   @override
   String get countries => 'Riigid';
 
   @override
-  String get sources => 'Andmeallikad';
+  String get auctionHouses => 'Oksjonimajad';
 
   @override
-  String get budgetRange => 'Eelarvevahemik (EUR)';
+  String get preferredMediums => 'Eelistatud tehnikad';
 
   @override
-  String get preferredMakes => 'Eelistatud margid';
+  String get preferredPeriods => 'Eelistatud perioodid';
 
   @override
-  String get bodyTypes => 'Keretüübid';
-
-  @override
-  String get fuelTypes => 'Kütusetüübid';
-
-  @override
-  String get transmission => 'Käigukast';
-
-  @override
-  String get maxMileage => 'Maksimaalne läbisõit';
-
-  @override
-  String get yearRange => 'Aasta vahemik';
-
-  @override
-  String get newListingsNotify => 'Uued kuulutused minu eelistuste järgi';
-
-  @override
-  String get priceDropsNotify => 'Hinnalangetused minu lemmikutel';
-
-  @override
-  String get weeklyDigestNotify => 'Iganädalane turuülevaade';
-
-  @override
-  String get viewTco => 'Vaata TCO jaotust';
-
-  @override
-  String get totalCostOfOwnership => 'Omamise kogukulu';
-
-  @override
-  String get fuelEnergy => 'Kütus/energia';
-
-  @override
-  String get insurance => 'Kindlustus';
-
-  @override
-  String get maintenance => 'Hooldus';
-
-  @override
-  String get depreciation => 'Väärtuse langus';
-
-  @override
-  String get totalAnnual => 'Kokku aastas';
-
-  @override
-  String get totalMonthly => 'Kokku kuus';
-
-  @override
-  String get costPerKm => 'Kulu km kohta';
-
-  @override
-  String get marketValue => 'Turuväärtus';
-
-  @override
-  String get purchasePrice => 'Ostuhind';
-
-  @override
-  String get comparables => 'võrreldavad';
-
-  @override
-  String get allCountries => 'Kõik riigid';
-
-  @override
-  String get allBrands => 'Kõik margid';
-
-  @override
-  String get allFuels => 'Kõik kütused';
+  String get weeklyDigestNotify => 'Iganädalane kunstituru ülevaade';
 }

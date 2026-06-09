@@ -3,17 +3,17 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:carhero/config/theme.dart';
-import 'package:carhero/models/auth.dart';
-import 'package:carhero/models/chat.dart';
-import 'package:carhero/models/agent.dart';
-import 'package:carhero/models/session.dart';
-import 'package:carhero/providers/auth_provider.dart';
-import 'package:carhero/providers/chat_provider.dart';
-import 'package:carhero/providers/agent_provider.dart';
-import 'package:carhero/providers/session_provider.dart';
-import 'package:carhero/screens/chat_screen.dart';
-import 'package:carhero/screens/app_scaffold.dart';
+import 'package:kanvas/config/theme.dart';
+import 'package:kanvas/models/auth.dart';
+import 'package:kanvas/models/chat.dart';
+import 'package:kanvas/models/agent.dart';
+import 'package:kanvas/models/session.dart';
+import 'package:kanvas/providers/auth_provider.dart';
+import 'package:kanvas/providers/chat_provider.dart';
+import 'package:kanvas/providers/agent_provider.dart';
+import 'package:kanvas/providers/session_provider.dart';
+import 'package:kanvas/screens/chat_screen.dart';
+import 'package:kanvas/screens/app_scaffold.dart';
 
 // ---------------------------------------------------------------------------
 // Fake providers for isolating the chat flow from network
@@ -36,7 +36,7 @@ class FakeChatNotifier extends ChatNotifier {
   ChatState build() => ChatState.initial();
 
   @override
-  Future<void> sendMessage(String message, {String lang = 'en'}) async {
+  Future<void> sendMessage(String message) async {
     // 1. Add user message, start streaming
     state = state.copyWith(
       messages: [
@@ -57,7 +57,7 @@ class FakeChatNotifier extends ChatNotifier {
     state = state.copyWith(
       currentAgent: const AgentInfo(
         slug: 'search',
-        name: 'Car Search',
+        name: 'Artist Lookup',
         icon: 'search',
       ),
     );
@@ -135,7 +135,7 @@ void main() {
       state = state.copyWith(
         currentAgent: const AgentInfo(
           slug: 'search',
-          name: 'Car Search',
+          name: 'Artist Lookup',
           icon: 'search',
         ),
       );
@@ -261,16 +261,19 @@ void main() {
       await tester.pumpWidget(_buildChatTestApp());
       await tester.pumpAndSettle();
 
-      expect(find.text('CarHero AI Advisor'), findsOneWidget);
+      expect(find.text('Kanvas AI Advisor'), findsOneWidget);
       expect(find.text('Try asking'), findsOneWidget);
-      expect(find.text('Search for a car, compare models...'), findsOneWidget);
+      expect(
+        find.text('Ask about an artist, artwork, or market...'),
+        findsOneWidget,
+      );
     });
 
     testWidgets('chat screen has app bar with title', (tester) async {
       await tester.pumpWidget(_buildChatTestApp());
       await tester.pumpAndSettle();
 
-      expect(find.text('CarHero AI'), findsOneWidget);
+      expect(find.text('Kanvas AI'), findsOneWidget);
     });
 
     testWidgets('chat screen has menu icon for drawer', (tester) async {
@@ -335,7 +338,7 @@ void main() {
       await tester.pumpAndSettle();
 
       // Welcome message should be gone, message list should be visible
-      expect(find.text('CarHero AI Advisor'), findsNothing);
+      expect(find.text('Kanvas AI Advisor'), findsNothing);
       expect(find.text('Hello'), findsOneWidget);
     });
 
@@ -347,7 +350,7 @@ void main() {
       await tester.pumpAndSettle();
 
       // Initially shows default title
-      expect(find.text('CarHero AI'), findsOneWidget);
+      expect(find.text('Kanvas AI'), findsOneWidget);
 
       // Send a message which triggers agent routing in fake
       final textField = find.byType(TextField);
@@ -357,7 +360,7 @@ void main() {
       await tester.pumpAndSettle();
 
       // After routing, app bar should show agent name
-      expect(find.text('Car Search'), findsOneWidget);
+      expect(find.text('Artist Lookup'), findsOneWidget);
     });
   });
 }

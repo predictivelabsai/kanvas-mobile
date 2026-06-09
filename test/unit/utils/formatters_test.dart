@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:carhero/utils/formatters.dart';
+import 'package:kanvas/utils/formatters.dart';
 
 void main() {
   group('Fmt.price', () {

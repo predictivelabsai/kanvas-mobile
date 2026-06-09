@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:carhero/config/theme.dart';
+import 'package:kanvas/config/theme.dart';
 
 class AboutScreen extends StatelessWidget {
   const AboutScreen({super.key});
@@ -27,7 +27,6 @@ class AboutScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Logo & title
             Center(
               child: Column(
                 children: [
@@ -40,7 +39,7 @@ class AboutScreen extends StatelessWidget {
                     ),
                     alignment: Alignment.center,
                     child: const Text(
-                      'CH',
+                      'K',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 28,
@@ -51,7 +50,7 @@ class AboutScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    'CarHero',
+                    'Kanvas',
                     style: TextStyle(
                       fontSize: 32,
                       fontWeight: FontWeight.w800,
@@ -61,7 +60,7 @@ class AboutScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    'Your AI Car Advisor',
+                    'Your AI Art Advisor',
                     style: TextStyle(fontSize: 15, color: AppTheme.gray500),
                   ),
                 ],
@@ -70,47 +69,44 @@ class AboutScreen extends StatelessWidget {
 
             const SizedBox(height: 40),
 
-            // Mission
             _sectionTitle('Our Mission'),
             const SizedBox(height: 12),
             Text(
-              'CarHero helps car buyers make smarter decisions. We combine real-time '
-              'market data from multiple European sources with advanced AI to provide '
-              'personalised search, accurate valuations, and expert-level advice -- '
+              'Kanvas helps art collectors and advisors make smarter decisions. We combine '
+              'auction records, artist databases, and market data with advanced AI to provide '
+              'research, valuations, and expert-level analysis -- '
               'all through a simple chat interface.',
               style: _bodyStyle,
             ),
             const SizedBox(height: 12),
             Text(
-              'Whether you are looking for a daily driver or a weekend sports car, '
-              'CarHero surfaces the best options, flags overpriced listings, and '
-              'highlights hidden gems that match your exact preferences.',
+              'Whether you are researching Estonian contemporary art or tracking Nordic '
+              'auction trends, Kanvas surfaces insights, identifies opportunities, and '
+              'delivers provenance research tailored to your interests.',
               style: _bodyStyle,
             ),
 
             const SizedBox(height: 32),
 
-            // Technology
             _sectionTitle('Technology'),
             const SizedBox(height: 12),
             Text(
-              'CarHero is powered by a multi-agent AI system. Specialised agents '
-              'handle search, valuation, market analysis, and advisory tasks '
-              'concurrently, orchestrated by a triage agent that routes your '
-              'questions to the right expert.',
+              'Kanvas is powered by a multi-agent AI system. Eight specialist agents '
+              'handle artist lookup, market analysis, auction tracking, valuation, '
+              'portfolio analysis, and provenance research, orchestrated by a triage '
+              'agent that routes your questions to the right expert.',
               style: _bodyStyle,
             ),
             const SizedBox(height: 12),
             Text(
-              'Our data pipeline aggregates listings from 8+ sources across 5+ '
-              'European countries, normalising prices, specifications, and '
-              'condition details into a unified format for fair comparison.',
+              'Our data pipeline aggregates auction records and artwork data across '
+              'Baltic and Nordic markets, building a comprehensive picture of artist '
+              'trajectories and market movements.',
               style: _bodyStyle,
             ),
 
             const SizedBox(height: 32),
 
-            // Contact
             _sectionTitle('Get in Touch'),
             const SizedBox(height: 12),
             Text(
@@ -135,10 +131,9 @@ class AboutScreen extends StatelessWidget {
 
             const SizedBox(height: 48),
 
-            // Footer
             Center(
               child: Text(
-                'CarHero v1.0.0',
+                'Kanvas v1.0.0',
                 style: TextStyle(fontSize: 12, color: AppTheme.gray400),
               ),
             ),

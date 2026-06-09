@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:carhero/config/theme.dart';
-import 'package:carhero/screens/contact_screen.dart';
+import 'package:kanvas/config/theme.dart';
+import 'package:kanvas/screens/contact_screen.dart';
 
 Widget _wrapWidget(Widget child) {
   return ProviderScope(
@@ -129,7 +129,7 @@ void main() {
       );
       await tester.enterText(
         find.byType(TextFormField).at(2),
-        'I have a question about CarHero.',
+        'I have a question about Kanvas.',
       );
 
       await tester.tap(find.text('Send Message'));

@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:carhero/models/chat.dart';
+import 'package:kanvas/models/chat.dart';
 
 void main() {
   group('SSE event parsing', () {

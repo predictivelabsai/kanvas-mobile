@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:carhero/config/theme.dart';
-import 'package:carhero/providers/connectivity_provider.dart';
+import 'package:kanvas/config/theme.dart';
+import 'package:kanvas/providers/connectivity_provider.dart';
 
 class AppScaffold extends ConsumerWidget {
   final Widget child;

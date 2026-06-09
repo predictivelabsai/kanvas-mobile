@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:carhero/config/theme.dart';
+import 'package:kanvas/config/theme.dart';
 
 class StreamingText extends StatefulWidget {
   final String text;

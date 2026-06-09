@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "698790728504",
-    "project_id": "carhero-mobile",
-    "storage_bucket": "carhero-mobile.firebasestorage.app"
+    "project_number": "366875522481",
+    "project_id": "kanvas-mobile-4569f",
+    "storage_bucket": "kanvas-mobile-4569f.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:698790728504:android:9dfa8be9906dacc8b9a7cd",
+        "mobilesdk_app_id": "1:366875522481:android:aa7f94ae41cfc71b5f7990",
         "android_client_info": {
-          "package_name": "chat.carhero.carhero"
+          "package_name": "ai.kanvas.mobile"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAmw-KL5-vSxqG38hzMYHKSlFkijGFUs7g"
+          "current_key": "AIzaSyCFG8BkK-FjeG5fHKINg35vtUO0cIjKo7A"
         }
       ],
       "services": {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:carhero/config/theme.dart';
+import 'package:kanvas/config/theme.dart';
 
 class ChatInputBar extends StatefulWidget {
   final bool isStreaming;
@@ -81,7 +81,7 @@ class _ChatInputBarState extends State<ChatInputBar> {
                 onSubmitted: (_) => _send(),
                 style: const TextStyle(fontSize: 14, height: 1.4),
                 decoration: const InputDecoration(
-                  hintText: 'Search for a car, compare models...',
+                  hintText: 'Ask about an artist, artwork, or market...',
                   border: InputBorder.none,
                   enabledBorder: InputBorder.none,
                   focusedBorder: InputBorder.none,

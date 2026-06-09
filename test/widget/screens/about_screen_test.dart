@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:carhero/config/theme.dart';
-import 'package:carhero/screens/about_screen.dart';
+import 'package:kanvas/config/theme.dart';
+import 'package:kanvas/screens/about_screen.dart';
 
 Widget _wrapWidget(Widget child) {
   return MaterialApp(
@@ -20,12 +20,12 @@ void main() {
       expect(find.text('About'), findsOneWidget);
     });
 
-    testWidgets('renders CarHero branding', (tester) async {
+    testWidgets('renders Kanvas branding', (tester) async {
       await tester.pumpWidget(_wrapWidget(const AboutScreen()));
 
-      expect(find.text('CarHero'), findsOneWidget);
-      expect(find.text('Your AI Car Advisor'), findsOneWidget);
-      expect(find.text('CH'), findsOneWidget);
+      expect(find.text('Kanvas'), findsOneWidget);
+      expect(find.text('Your AI Art Advisor'), findsOneWidget);
+      expect(find.text('K'), findsOneWidget);
     });
 
     testWidgets('renders Our Mission section', (tester) async {
@@ -78,12 +78,12 @@ void main() {
       await tester.pumpWidget(_wrapWidget(const AboutScreen()));
 
       await tester.scrollUntilVisible(
-        find.text('CarHero v1.0.0'),
+        find.text('Kanvas v1.0.0'),
         200,
         scrollable: find.byType(Scrollable).first,
       );
 
-      expect(find.text('CarHero v1.0.0'), findsOneWidget);
+      expect(find.text('Kanvas v1.0.0'), findsOneWidget);
     });
 
     testWidgets('renders back button in app bar', (tester) async {
@@ -97,7 +97,7 @@ void main() {
     ) async {
       await tester.pumpWidget(_wrapWidget(const AboutScreen()));
 
-      expect(find.textContaining('personalised search'), findsOneWidget);
+      expect(find.textContaining('tailored to your interests'), findsOneWidget);
     });
 
     testWidgets('renders technology body text about data pipeline', (

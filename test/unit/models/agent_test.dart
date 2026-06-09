@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:carhero/models/agent.dart';
+import 'package:kanvas/models/agent.dart';
 
 void main() {
   group('AgentOut', () {

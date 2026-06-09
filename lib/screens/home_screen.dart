@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:carhero/config/constants.dart';
-import 'package:carhero/config/theme.dart';
+import 'package:kanvas/config/theme.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -15,22 +14,11 @@ class HomeScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // ---- Hero Section ----
               _HeroSection(),
-
-              // ---- Stats Row ----
               _StatsRow(),
-
-              // ---- Features Section ----
               _FeaturesSection(),
-
-              // ---- How it Works ----
               _HowItWorksSection(),
-
-              // ---- Brands Bar ----
-              _BrandsBar(),
-
-              // ---- Bottom CTA ----
+              _AgentsBar(),
               _BottomCta(),
             ],
           ),
@@ -40,9 +28,6 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-// --------------------------------------------------------------------------
-// Hero
-// --------------------------------------------------------------------------
 class _HeroSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -52,7 +37,7 @@ class _HeroSection extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            'CarHero',
+            'Kanvas',
             textAlign: TextAlign.center,
             style: TextStyle(
               fontFamily: 'Inter',
@@ -64,7 +49,7 @@ class _HeroSection extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           Text(
-            'Your AI Car Advisor.',
+            'Your AI Art Advisor.',
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 22,
@@ -74,7 +59,7 @@ class _HeroSection extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           Text(
-            'Search, compare, and value premium cars across Europe.',
+            'Research artists, track auctions, and value artworks across the Baltic and Nordic markets.',
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 15,
@@ -104,7 +89,7 @@ class _HeroSection extends StatelessWidget {
                       borderRadius: BorderRadius.circular(8),
                     ),
                   ),
-                  child: const Text('Explore Market'),
+                  child: const Text('Learn More'),
                 ),
               ),
             ],
@@ -115,15 +100,12 @@ class _HeroSection extends StatelessWidget {
   }
 }
 
-// --------------------------------------------------------------------------
-// Stats Row
-// --------------------------------------------------------------------------
 class _StatsRow extends StatelessWidget {
   static const _stats = [
-    _Stat('50,000+', 'Listings'),
-    _Stat('12', 'Brands'),
-    _Stat('5+', 'Countries'),
-    _Stat('8', 'Sources'),
+    _Stat('8', 'AI Agents'),
+    _Stat('1000+', 'Artists'),
+    _Stat('6', 'Countries'),
+    _Stat('5+', 'Auction Houses'),
   ];
 
   @override
@@ -176,25 +158,22 @@ class _StatCard extends StatelessWidget {
   }
 }
 
-// --------------------------------------------------------------------------
-// Features
-// --------------------------------------------------------------------------
 class _FeaturesSection extends StatelessWidget {
   static const _features = [
     _Feature(
-      Icons.assistant_outlined,
-      'Advisory',
-      'Chat with our AI advisor to find the perfect car based on your needs, budget, and lifestyle.',
+      Icons.palette_outlined,
+      'Artist Research',
+      'Look up any Estonian or Baltic artist — biography, exhibition history, auction results, and market trajectory.',
     ),
     _Feature(
       Icons.insights_outlined,
       'Market Intelligence',
-      'Real-time pricing data, market trends, and competitive analysis across European markets.',
+      'Track auction trends, price indices, and market movements across Baltic and Nordic art markets.',
     ),
     _Feature(
       Icons.calculate_outlined,
       'Valuation',
-      'Accurate, data-driven valuations powered by machine learning across thousands of listings.',
+      'Get data-driven artwork valuations powered by auction records and comparable sales analysis.',
     ),
   ];
 
@@ -206,7 +185,7 @@ class _FeaturesSection extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            'What CarHero Does',
+            'What Kanvas Does',
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.w700,
@@ -286,25 +265,22 @@ class _FeatureCard extends StatelessWidget {
   }
 }
 
-// --------------------------------------------------------------------------
-// How it Works
-// --------------------------------------------------------------------------
 class _HowItWorksSection extends StatelessWidget {
   static const _steps = [
     _Step(
       '1',
-      'Tell Us What You Want',
-      'Describe your ideal car -- budget, brand, features -- or ask for recommendations.',
+      'Ask About Art',
+      'Describe what you want to know — an artist, a medium, market trends, or a specific artwork.',
     ),
     _Step(
       '2',
-      'We Search the Market',
-      'Our agents scan thousands of listings across 8 sources in real time.',
+      'AI Agents Research',
+      'Our 8 specialist agents search auction records, artist databases, and market data.',
     ),
     _Step(
       '3',
-      'Get Expert Advice',
-      'Receive curated results with valuations, comparisons, and market insights.',
+      'Get Expert Insights',
+      'Receive curated analysis with valuations, comparisons, and provenance research.',
     ),
   ];
 
@@ -398,10 +374,16 @@ class _StepRow extends StatelessWidget {
   }
 }
 
-// --------------------------------------------------------------------------
-// Brands Bar
-// --------------------------------------------------------------------------
-class _BrandsBar extends StatelessWidget {
+class _AgentsBar extends StatelessWidget {
+  static const _agents = [
+    'Artist Lookup',
+    'Market Analyst',
+    'Auction Tracker',
+    'Valuator',
+    'Portfolio Analyst',
+    'Provenance Checker',
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -410,7 +392,7 @@ class _BrandsBar extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            'Premium Brands',
+            'Specialist AI Agents',
             style: TextStyle(
               fontSize: 13,
               fontWeight: FontWeight.w600,
@@ -424,12 +406,12 @@ class _BrandsBar extends StatelessWidget {
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
               padding: const EdgeInsets.symmetric(horizontal: 20),
-              itemCount: AppConstants.brands.length,
+              itemCount: _agents.length,
               separatorBuilder: (_, __) => const SizedBox(width: 20),
               itemBuilder: (context, index) {
                 return Center(
                   child: Text(
-                    AppConstants.brands[index],
+                    _agents[index],
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
@@ -446,9 +428,6 @@ class _BrandsBar extends StatelessWidget {
   }
 }
 
-// --------------------------------------------------------------------------
-// Bottom CTA
-// --------------------------------------------------------------------------
 class _BottomCta extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -457,7 +436,7 @@ class _BottomCta extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            'Ready to find your next car?',
+            'Ready to explore the art market?',
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 22,
@@ -467,7 +446,7 @@ class _BottomCta extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           Text(
-            'Join thousands of drivers who trust CarHero for smarter car buying.',
+            'Join collectors and advisors who trust Kanvas for smarter art decisions.',
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 14,

@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:carhero/models/auth.dart';
-import 'package:carhero/services/api_client.dart';
-import 'package:carhero/services/auth_service.dart';
-import 'package:carhero/utils/secure_storage.dart';
+import 'package:kanvas/models/auth.dart';
+import 'package:kanvas/services/api_client.dart';
+import 'package:kanvas/services/auth_service.dart';
+import 'package:kanvas/utils/secure_storage.dart';
 
 // ApiClient provider - depends on auth token
 final apiClientProvider = Provider<ApiClient>((ref) {

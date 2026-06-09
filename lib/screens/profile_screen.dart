@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:carhero/config/constants.dart';
-import 'package:carhero/config/theme.dart';
-import 'package:carhero/models/profile.dart';
-import 'package:carhero/providers/auth_provider.dart';
-import 'package:carhero/providers/profile_provider.dart';
+import 'package:kanvas/config/constants.dart';
+import 'package:kanvas/config/theme.dart';
+import 'package:kanvas/models/profile.dart';
+import 'package:kanvas/providers/profile_provider.dart';
 
 class ProfileScreen extends ConsumerStatefulWidget {
   const ProfileScreen({super.key});
@@ -15,7 +14,6 @@ class ProfileScreen extends ConsumerStatefulWidget {
 }
 
 class _ProfileScreenState extends ConsumerState<ProfileScreen> {
-  // --- Account controllers ---
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _phoneController = TextEditingController();
@@ -24,20 +22,9 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   String _currency = 'EUR';
   String _language = 'en';
 
-  // --- Search Preferences ---
-  final _budgetMinController = TextEditingController();
-  final _budgetMaxController = TextEditingController();
-  Set<String> _selectedMakes = {};
-  Set<String> _selectedBodyTypes = {};
-  Set<String> _selectedFuelTypes = {};
-  String _transmission = 'Any';
-  final _maxMileageController = TextEditingController();
-  final _minYearController = TextEditingController();
-  final _maxYearController = TextEditingController();
+  Set<String> _selectedMediums = {};
+  Set<String> _selectedPeriods = {};
 
-  // --- Notifications ---
-  bool _notifyNewListings = true;
-  bool _notifyPriceDrops = true;
   bool _notifyWeeklyDigest = false;
 
   bool _initialized = false;
@@ -69,11 +56,6 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     _phoneController.dispose();
     _countryController.dispose();
     _cityController.dispose();
-    _budgetMinController.dispose();
-    _budgetMaxController.dispose();
-    _maxMileageController.dispose();
-    _minYearController.dispose();
-    _maxYearController.dispose();
     super.dispose();
   }
 
@@ -89,29 +71,8 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     _language = AppConstants.supportedLocales.contains(profile.language)
         ? profile.language
         : 'en';
-
-    if (profile.budgetMinEur != null) {
-      _budgetMinController.text = profile.budgetMinEur!.toStringAsFixed(0);
-    }
-    if (profile.budgetMaxEur != null) {
-      _budgetMaxController.text = profile.budgetMaxEur!.toStringAsFixed(0);
-    }
-    _selectedMakes = profile.preferredMakes.toSet();
-    _selectedBodyTypes = profile.preferredBodyTypes.toSet();
-    _selectedFuelTypes = profile.preferredFuelTypes.toSet();
-    _transmission = profile.preferredTransmission ?? 'Any';
-    if (profile.maxMileageKm != null) {
-      _maxMileageController.text = profile.maxMileageKm.toString();
-    }
-    if (profile.minYear != null) {
-      _minYearController.text = profile.minYear.toString();
-    }
-    if (profile.maxYear != null) {
-      _maxYearController.text = profile.maxYear.toString();
-    }
-
-    _notifyNewListings = profile.notifyNewListings;
-    _notifyPriceDrops = profile.notifyPriceDrops;
+    _selectedMediums = profile.preferredMediums.toSet();
+    _selectedPeriods = profile.preferredPeriods.toSet();
     _notifyWeeklyDigest = profile.notifyWeeklyDigest;
   }
 
@@ -153,27 +114,12 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   Future<void> _savePreferences() async {
     setState(() => _savingPrefs = true);
     try {
-      final minBudget = double.tryParse(_budgetMinController.text.trim());
-      final maxBudget = double.tryParse(_budgetMaxController.text.trim());
-      final maxMileage = int.tryParse(_maxMileageController.text.trim());
-      final minYear = int.tryParse(_minYearController.text.trim());
-      final maxYear = int.tryParse(_maxYearController.text.trim());
-
       await ref
           .read(profileProvider.notifier)
           .updateProfile(
             UpdateProfileRequest(
-              budgetMinEur: minBudget,
-              budgetMaxEur: maxBudget,
-              preferredMakes: _selectedMakes.toList(),
-              preferredBodyTypes: _selectedBodyTypes.toList(),
-              preferredFuelTypes: _selectedFuelTypes.toList(),
-              preferredTransmission: _transmission == 'Any'
-                  ? null
-                  : _transmission,
-              maxMileageKm: maxMileage,
-              minYear: minYear,
-              maxYear: maxYear,
+              preferredMediums: _selectedMediums.toList(),
+              preferredPeriods: _selectedPeriods.toList(),
             ),
           );
       if (!mounted) return;
@@ -202,11 +148,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
       await ref
           .read(profileProvider.notifier)
           .updateProfile(
-            UpdateProfileRequest(
-              notifyNewListings: _notifyNewListings,
-              notifyPriceDrops: _notifyPriceDrops,
-              notifyWeeklyDigest: _notifyWeeklyDigest,
-            ),
+            UpdateProfileRequest(notifyWeeklyDigest: _notifyWeeklyDigest),
           );
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
@@ -232,7 +174,6 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   Widget build(BuildContext context) {
     final profileAsync = ref.watch(profileProvider);
 
-    // Pre-fill controllers once when profile loads
     profileAsync.whenData((profile) {
       if (profile != null && !_initialized) {
         _initialized = true;
@@ -274,7 +215,6 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // ---- Section 1: Account ----
           _sectionHeader('Account'),
           const SizedBox(height: 12),
           _textField('Name', _nameController),
@@ -320,57 +260,18 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
           const Divider(),
           const SizedBox(height: 16),
 
-          // ---- Section 2: Search Preferences ----
-          _sectionHeader('Search Preferences'),
+          _sectionHeader('Art Preferences'),
           const SizedBox(height: 16),
 
-          // Budget range
-          Text(
-            'Budget Range',
-            style: TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.w600,
-              color: AppTheme.gray500,
-            ),
-          ),
-          const SizedBox(height: 8),
-          Row(
-            children: [
-              Expanded(
-                child: TextFormField(
-                  controller: _budgetMinController,
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                    hintText: 'Min',
-                    prefixText: 'EUR ',
-                  ),
-                ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: TextFormField(
-                  controller: _budgetMaxController,
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                    hintText: 'Max',
-                    prefixText: 'EUR ',
-                  ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 20),
-
-          // Preferred Makes
-          _chipGroupLabel('Preferred Makes'),
+          _chipGroupLabel('Preferred Mediums'),
           const SizedBox(height: 8),
           Wrap(
             spacing: 8,
             runSpacing: 6,
-            children: AppConstants.brands.map((brand) {
-              final selected = _selectedMakes.contains(brand);
+            children: AppConstants.mediums.map((medium) {
+              final selected = _selectedMediums.contains(medium);
               return FilterChip(
-                label: Text(brand),
+                label: Text(medium),
                 selected: selected,
                 selectedColor: AppTheme.ink,
                 labelStyle: TextStyle(
@@ -381,9 +282,9 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                 onSelected: (val) {
                   setState(() {
                     if (val) {
-                      _selectedMakes.add(brand);
+                      _selectedMediums.add(medium);
                     } else {
-                      _selectedMakes.remove(brand);
+                      _selectedMediums.remove(medium);
                     }
                   });
                 },
@@ -392,16 +293,15 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
           ),
           const SizedBox(height: 20),
 
-          // Body Types
-          _chipGroupLabel('Body Types'),
+          _chipGroupLabel('Preferred Periods'),
           const SizedBox(height: 8),
           Wrap(
             spacing: 8,
             runSpacing: 6,
-            children: AppConstants.bodyTypes.map((type) {
-              final selected = _selectedBodyTypes.contains(type);
+            children: AppConstants.periods.map((period) {
+              final selected = _selectedPeriods.contains(period);
               return FilterChip(
-                label: Text(type),
+                label: Text(period),
                 selected: selected,
                 selectedColor: AppTheme.ink,
                 labelStyle: TextStyle(
@@ -412,106 +312,14 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                 onSelected: (val) {
                   setState(() {
                     if (val) {
-                      _selectedBodyTypes.add(type);
+                      _selectedPeriods.add(period);
                     } else {
-                      _selectedBodyTypes.remove(type);
+                      _selectedPeriods.remove(period);
                     }
                   });
                 },
               );
             }).toList(),
-          ),
-          const SizedBox(height: 20),
-
-          // Fuel Types
-          _chipGroupLabel('Fuel Types'),
-          const SizedBox(height: 8),
-          Wrap(
-            spacing: 8,
-            runSpacing: 6,
-            children: AppConstants.fuelTypes.map((fuel) {
-              final selected = _selectedFuelTypes.contains(fuel);
-              return FilterChip(
-                label: Text(fuel),
-                selected: selected,
-                selectedColor: AppTheme.ink,
-                labelStyle: TextStyle(
-                  color: selected ? Colors.white : AppTheme.ink,
-                  fontSize: 13,
-                ),
-                checkmarkColor: Colors.white,
-                onSelected: (val) {
-                  setState(() {
-                    if (val) {
-                      _selectedFuelTypes.add(fuel);
-                    } else {
-                      _selectedFuelTypes.remove(fuel);
-                    }
-                  });
-                },
-              );
-            }).toList(),
-          ),
-          const SizedBox(height: 20),
-
-          // Transmission
-          _chipGroupLabel('Transmission'),
-          const SizedBox(height: 8),
-          Wrap(
-            spacing: 8,
-            children: ['Any', 'Automatic', 'Manual'].map((t) {
-              return ChoiceChip(
-                label: Text(t),
-                selected: _transmission == t,
-                selectedColor: AppTheme.ink,
-                labelStyle: TextStyle(
-                  color: _transmission == t ? Colors.white : AppTheme.ink,
-                  fontSize: 13,
-                ),
-                onSelected: (val) {
-                  if (val) setState(() => _transmission = t);
-                },
-              );
-            }).toList(),
-          ),
-          const SizedBox(height: 20),
-
-          // Max Mileage
-          _textField(
-            'Max Mileage (km)',
-            _maxMileageController,
-            keyboardType: TextInputType.number,
-          ),
-          const SizedBox(height: 12),
-
-          // Year range
-          Text(
-            'Year Range',
-            style: TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.w600,
-              color: AppTheme.gray500,
-            ),
-          ),
-          const SizedBox(height: 8),
-          Row(
-            children: [
-              Expanded(
-                child: TextFormField(
-                  controller: _minYearController,
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(hintText: 'Min Year'),
-                ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: TextFormField(
-                  controller: _maxYearController,
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(hintText: 'Max Year'),
-                ),
-              ),
-            ],
           ),
           const SizedBox(height: 20),
           _saveButton('Save Preferences', _savingPrefs, _savePreferences),
@@ -520,37 +328,16 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
           const Divider(),
           const SizedBox(height: 16),
 
-          // ---- Section 3: Notifications ----
           _sectionHeader('Notifications'),
           const SizedBox(height: 12),
           SwitchListTile(
             contentPadding: EdgeInsets.zero,
             title: const Text(
-              'New listings matching preferences',
-              style: TextStyle(fontSize: 14),
-            ),
-            value: _notifyNewListings,
-            activeColor: AppTheme.ink,
-            onChanged: (v) => setState(() => _notifyNewListings = v),
-          ),
-          SwitchListTile(
-            contentPadding: EdgeInsets.zero,
-            title: const Text(
-              'Price drops on favorites',
-              style: TextStyle(fontSize: 14),
-            ),
-            value: _notifyPriceDrops,
-            activeColor: AppTheme.ink,
-            onChanged: (v) => setState(() => _notifyPriceDrops = v),
-          ),
-          SwitchListTile(
-            contentPadding: EdgeInsets.zero,
-            title: const Text(
-              'Weekly market digest',
+              'Weekly art market digest',
               style: TextStyle(fontSize: 14),
             ),
             value: _notifyWeeklyDigest,
-            activeColor: AppTheme.ink,
+            activeThumbColor: AppTheme.ink,
             onChanged: (v) => setState(() => _notifyWeeklyDigest = v),
           ),
           const SizedBox(height: 16),
@@ -565,8 +352,6 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
       ),
     );
   }
-
-  // ---- Helper widgets ----
 
   Widget _sectionHeader(String title) {
     return Text(

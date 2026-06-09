@@ -2,8 +2,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'package:carhero/services/api_client.dart';
-import 'package:carhero/services/auth_service.dart';
+import 'package:kanvas/services/api_client.dart';
+import 'package:kanvas/services/auth_service.dart';
 
 @GenerateMocks([ApiClient])
 import 'auth_service_test.mocks.dart';
@@ -19,7 +19,7 @@ void main() {
 
   group('AuthService.login', () {
     test('returns AuthResponse on success', () async {
-      when(mockClient.post('/auth/login', data: anyNamed('data'))).thenAnswer(
+      when(mockClient.post('/auth/token', data: anyNamed('data'))).thenAnswer(
         (_) async => {
           'token': 'jwt-123',
           'email': 'user@test.com',
@@ -34,12 +34,12 @@ void main() {
       expect(auth.email, 'user@test.com');
       expect(auth.userId, 1);
 
-      verify(mockClient.post('/auth/login', data: anyNamed('data'))).called(1);
+      verify(mockClient.post('/auth/token', data: anyNamed('data'))).called(1);
     });
 
     test('throws on API error', () async {
       when(
-        mockClient.post('/auth/login', data: anyNamed('data')),
+        mockClient.post('/auth/token', data: anyNamed('data')),
       ).thenThrow(Exception('Invalid credentials'));
 
       expect(() => authService.login('bad@test.com', 'wrong'), throwsException);

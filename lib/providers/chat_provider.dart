@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:carhero/models/chat.dart';
-import 'package:carhero/services/chat_service.dart';
-import 'package:carhero/providers/auth_provider.dart';
-import 'package:carhero/providers/session_provider.dart';
+import 'package:kanvas/models/chat.dart';
+import 'package:kanvas/services/chat_service.dart';
+import 'package:kanvas/providers/auth_provider.dart';
+import 'package:kanvas/providers/session_provider.dart';
 
 final chatServiceProvider = Provider<ChatService>((ref) => ChatService());
 
@@ -14,7 +14,7 @@ class ChatNotifier extends Notifier<ChatState> {
   @override
   ChatState build() => ChatState.initial();
 
-  Future<void> sendMessage(String message, {String lang = 'en'}) async {
+  Future<void> sendMessage(String message) async {
     final token = ref.read(currentTokenProvider) ?? '';
 
     // Add user message immediately
@@ -39,7 +39,6 @@ class ChatNotifier extends Notifier<ChatState> {
       await for (final event in service.streamChat(
         message: message,
         sessionId: state.currentSessionId,
-        lang: lang,
         token: token,
       )) {
         switch (event) {

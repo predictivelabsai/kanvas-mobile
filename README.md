@@ -1,17 +1,14 @@
-# CarHero Mobile
+# Kanvas Mobile
 
-Flutter mobile app for [CarHero](https://carhero.chat) — an AI-powered European premium car marketplace. Search, compare, and value 50,000+ premium car listings across 8+ European marketplaces using 5 specialist AI agents.
+Flutter mobile app for [Kanvas.ai](https://kanvas.ai) — an AI art advisory platform for the Estonian and Baltic art market. Research artists, track auctions, and value artworks using 8 specialist AI agents.
 
 ## Features
 
-- **AI Chat** — Conversational interface with 5 specialist agents (search, market analyst, valuator, comparator, advisor) via real-time SSE streaming
-- **Market Map** — Interactive treemap, price trends, geographic heatmaps, value scatter plots, and price index charts (fl_chart)
-- **Favorites** — Save listings with notes, track price changes
-- **My Garage** — Track owned vehicles with live market valuations and TCO breakdowns
-- **Saved Searches** — Persist search filters, get notifications on new matches
-- **Analytics** — Natural language to SQL queries with auto-generated charts
+- **AI Chat** — Conversational interface with 8 specialist agents (artist lookup, artist compare, market analyst, auction tracker, acquisition advisor, portfolio analyst, valuator, provenance checker) via real-time SSE streaming
 - **12 Languages** — English, Estonian, German, French, Swedish, Latvian, Norwegian, Danish, Polish, Dutch, Finnish, Lithuanian
 - **Auth** — Email/password + Google Sign-In with JWT
+- **Profile** — Art preferences (mediums, periods, auction houses, markets)
+- **Sessions** — Chat history with share links
 - **Offline Detection** — Banner shown when network connectivity drops
 
 ## Tech Stack
@@ -22,7 +19,6 @@ Flutter mobile app for [CarHero](https://carhero.chat) — an AI-powered Europea
 | State management | Riverpod 3 |
 | Routing | GoRouter 17 |
 | HTTP | Dio (REST) + http (SSE streaming) |
-| Charts | fl_chart |
 | Auth | JWT Bearer + Google Sign-In v7 |
 | i18n | Flutter Localizations (ARB) |
 | Storage | flutter_secure_storage + shared_preferences |
@@ -39,34 +35,28 @@ lib/
   config/
     api_config.dart          # Base URL, timeouts (configurable via --dart-define)
     theme.dart               # Material 3 theme (colors, typography)
-    constants.dart           # Brand list, country codes, fuel types
+    constants.dart           # Art mediums, periods, auction houses, countries
 
-  models/                    # Data classes (11 files)
-    auth.dart, chat.dart, listing.dart, favorite.dart, garage.dart,
-    session.dart, profile.dart, market_map.dart, analytics.dart,
-    agent.dart, saved_search.dart
+  models/                    # Data classes
+    auth.dart, chat.dart, session.dart, profile.dart, agent.dart
 
-  services/                  # API layer (13 files)
+  services/                  # API layer
     api_client.dart          # Dio client + JWT interceptor
     chat_service.dart        # SSE streaming via POST
-    auth_service.dart, listing_service.dart, favorite_service.dart,
-    garage_service.dart, market_map_service.dart, analytics_service.dart,
-    profile_service.dart, session_service.dart, saved_search_service.dart,
+    auth_service.dart, profile_service.dart, session_service.dart,
     agent_service.dart, contact_service.dart
 
-  providers/                 # Riverpod state (12 files)
+  providers/                 # Riverpod state
     auth_provider.dart       # AsyncNotifier for auth state
     chat_provider.dart       # Manages SSE stream, messages, artifacts
     connectivity_provider.dart # Network status monitoring
-    locale_provider.dart, market_map_provider.dart, analytics_provider.dart,
-    favorite_provider.dart, garage_provider.dart, session_provider.dart,
-    profile_provider.dart, saved_search_provider.dart, agent_provider.dart
+    locale_provider.dart, session_provider.dart,
+    profile_provider.dart, agent_provider.dart
 
   router/
     app_router.dart          # GoRouter with auth redirect
 
-  screens/                   # 11 screen modules
-  widgets/                   # Reusable components (ErrorView, EmptyState)
+  screens/                   # Screen modules (chat, auth, profile, about, contact, home)
   utils/                     # Formatters, validators, secure storage
   l10n/                      # 12 ARB files + generated localizations
 ```
@@ -89,12 +79,12 @@ flutter run
 
 ### Configure API URL
 
-Default API: `https://carhero.chat/api/v1`
+Default API: `https://kanvas.ai/api`
 
 Override at build time:
 
 ```bash
-flutter run --dart-define=API_BASE_URL=http://localhost:8000/api/v1
+flutter run --dart-define=API_BASE_URL=http://localhost:5009/api
 ```
 
 ### Google Sign-In
@@ -115,7 +105,7 @@ Android OAuth Client ID: `76656799510-99q9f28jc0494atvgmjirppeuk2mfe8l.apps.goog
 # Generate mocks first
 dart run build_runner build --delete-conflicting-outputs
 
-# Run all tests (294 tests)
+# Run all tests (209 tests)
 flutter test
 
 # Run by category
@@ -126,15 +116,15 @@ flutter test test/integration/
 
 ## Test Suite
 
-35 test files, 294 tests across three layers:
+23 test files, 209 tests across three layers:
 
 | Category | Files | Coverage |
 |----------|-------|----------|
-| Unit — Models | 11 | JSON round-trip, computed properties, null handling |
-| Unit — Services | 3 | Auth, favorites (mocked Dio), SSE parser (all 8 event types) |
-| Unit — Utils | 2 | Price/mileage formatting, email/password validation |
-| Widget | 10 | Login, listing card, chat bubbles, input bar, tool cards, welcome, profile, about, contact, home |
-| Integration | 7 | Auth flow, chat streaming, favorites CRUD, garage + TCO, market map, navigation, app launch |
+| Unit — Models | 5 | JSON round-trip, computed properties, null handling |
+| Unit — Services | 3 | Auth (mocked Dio), SSE parser (all 8 event types) |
+| Unit — Utils | 2 | Price formatting, email/password validation |
+| Widget | 10 | Login, chat bubbles, input bar, tool cards, welcome, profile, about, contact, home |
+| Integration | 5 | Auth flow, chat streaming, navigation, app launch |
 
 ## CI/CD
 
@@ -142,15 +132,14 @@ flutter test test/integration/
 
 On every push to `main`:
 1. **Analyze** — `dart format --set-exit-if-changed` + `flutter analyze`
-2. **Test** — `flutter test --coverage` (294 tests)
+2. **Test** — `flutter test --coverage` (209 tests)
 3. **Build** — `flutter build apk --release` + `flutter build appbundle --release`
 4. **Distribute** — APK uploaded to Firebase App Distribution (testers group)
 
 ### Firebase App Distribution
 
-- **Firebase Project**: `carhero-mobile` (GCP project ID)
-- **App ID**: `1:698790728504:android:9dfa8be9906dacc8b9a7cd`
-- **Package**: `chat.carhero.carhero`
+- **Firebase Project**: TBD (pending `kanvas-mobile` project setup)
+- **Package**: `ai.kanvas.mobile`
 - **Testers group**: `testers`
 
 To install on device:
@@ -175,38 +164,32 @@ To install on device:
 
 | Project | ID | Purpose |
 |---------|-----|---------|
-| CarHero Mobile | `carhero-mobile` | Firebase, App Distribution, Crashlytics |
+| Kanvas Mobile | TBD | Firebase, App Distribution |
 | Finespresso | `finespresso` | Google OAuth client IDs (shared with web app) |
 
 ### Google OAuth Setup
 
 - **Web Client ID** (used as `serverClientId` in Flutter): `76656799510-2996ug4uc4743ht74g4hsopn61g71ien.apps.googleusercontent.com`
 - **Android Client ID**: `76656799510-99q9f28jc0494atvgmjirppeuk2mfe8l.apps.googleusercontent.com`
-  - Package: `chat.carhero.carhero`
+  - Package: `ai.kanvas.mobile`
   - SHA-1 (debug): from `~/.android/debug.keystore`
 
-### Firebase Service Account
+## Backend API
 
-Service account `firebase-app-dist@carhero-mobile.iam.gserviceaccount.com` with `roles/firebaseappdistro.admin` role. Key stored as `FIREBASE_SERVICE_ACCOUNT` GitHub secret.
+The app connects to the Kanvas FastHTML backend. Key endpoints:
+
+- **Auth** — `POST /api/auth/token`, `/api/auth/register`, `/api/auth/google`, `GET /api/auth/me`
+- **Chat** — `POST /app/chat` (SSE streaming, form-encoded: `msg`, `sid`)
+- **Agents** — `GET /api/agents`
+- **Sessions** — `GET /api/sessions`, `DELETE /api/sessions/{id}`
+- **Share** — `POST /api/chat/share`
+- **Profile** — `POST /api/user-profile`
 
 ## Supported Languages
 
 `en` `et` `de` `fr` `sv` `lv` `no` `da` `pl` `nl` `fi` `lt`
 
-~90 translation keys per language, sourced from the CarHero web app's i18n catalog.
-
-## Backend API
-
-The app connects to the CarHero FastAPI backend at `/api/v1`. Key endpoint groups:
-
-- **Auth** — `/auth/login`, `/auth/register`, `/auth/google`, `/auth/me`
-- **Chat** — `/sessions`, `/chat` (SSE), `/agents`
-- **Favorites** — `/favorites` CRUD
-- **Garage** — `/garage` CRUD + `/valuation` + `/tco`
-- **Market Map** — `/market-map/treemap|trends|geo|value-map|price-index`
-- **Analytics** — `/analytics/query`
-- **Profile** — `/user/profile`
-- **Shared** — `/shared/{token}` (public, no auth)
+~55 translation keys per language.
 
 ## License
 

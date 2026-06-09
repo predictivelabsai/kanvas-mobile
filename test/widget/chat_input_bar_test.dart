@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:carhero/config/theme.dart';
-import 'package:carhero/screens/chat/widgets/chat_input_bar.dart';
+import 'package:kanvas/config/theme.dart';
+import 'package:kanvas/screens/chat/widgets/chat_input_bar.dart';
 
 Widget _wrapWidget(Widget child) {
   return MaterialApp(
@@ -19,7 +19,10 @@ void main() {
       );
 
       expect(find.byType(TextField), findsOneWidget);
-      expect(find.text('Search for a car, compare models...'), findsOneWidget);
+      expect(
+        find.text('Ask about an artist, artwork, or market...'),
+        findsOneWidget,
+      );
     });
 
     testWidgets('renders send button', (tester) async {

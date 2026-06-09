@@ -3,27 +3,34 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
-import 'package:carhero/config/api_config.dart';
-import 'package:carhero/models/chat.dart';
+import 'package:kanvas/config/api_config.dart';
+import 'package:kanvas/models/chat.dart';
 
 class ChatService {
   Stream<ChatEvent> streamChat({
     required String message,
     int? sessionId,
-    String lang = 'en',
     required String token,
   }) async* {
-    final uri = Uri.parse('${ApiConfig.baseUrl}/chat');
+    final uri = Uri.parse('${ApiConfig.baseUrl}/app/chat');
 
     final request = http.Request('POST', uri);
-    request.headers['Content-Type'] = 'application/json';
+    request.headers['Content-Type'] = 'application/x-www-form-urlencoded';
     request.headers['Accept'] = 'text/event-stream';
     if (token.isNotEmpty) {
       request.headers['Authorization'] = 'Bearer $token';
     }
-    request.body = jsonEncode(
-      ChatRequest(message: message, sessionId: sessionId, lang: lang).toJson(),
-    );
+
+    final params = <String, String>{'msg': message};
+    if (sessionId != null) {
+      params['sid'] = sessionId.toString();
+    }
+    request.body = params.entries
+        .map(
+          (e) =>
+              '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}',
+        )
+        .join('&');
 
     final response = await http.Client().send(request);
 

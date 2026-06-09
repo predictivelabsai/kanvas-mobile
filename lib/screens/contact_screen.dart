@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:carhero/config/theme.dart';
-import 'package:carhero/providers/auth_provider.dart';
-import 'package:carhero/services/contact_service.dart';
-import 'package:carhero/utils/validators.dart';
+import 'package:kanvas/config/theme.dart';
+import 'package:kanvas/providers/auth_provider.dart';
+import 'package:kanvas/services/contact_service.dart';
+import 'package:kanvas/utils/validators.dart';
 
 final _contactServiceProvider = Provider<ContactService>((ref) {
   return ContactService(ref.read(apiClientProvider));

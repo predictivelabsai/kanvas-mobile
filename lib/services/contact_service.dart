@@ -1,4 +1,4 @@
-import 'package:carhero/services/api_client.dart';
+import 'package:kanvas/services/api_client.dart';
 
 class ContactService {
   final ApiClient _client;

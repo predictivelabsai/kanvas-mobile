@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:carhero/config/theme.dart';
-import 'package:carhero/models/chat.dart';
-import 'package:carhero/screens/chat/widgets/chat_message_bubble.dart';
+import 'package:kanvas/config/theme.dart';
+import 'package:kanvas/models/chat.dart';
+import 'package:kanvas/screens/chat/widgets/chat_message_bubble.dart';
 
 Widget _wrapWidget(Widget child) {
   return MaterialApp(

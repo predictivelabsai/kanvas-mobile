@@ -1,23 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:carhero/providers/auth_provider.dart';
-import 'package:carhero/screens/home_screen.dart';
-import 'package:carhero/screens/about_screen.dart';
-import 'package:carhero/screens/contact_screen.dart';
-import 'package:carhero/screens/shared_session_screen.dart';
-import 'package:carhero/screens/auth/login_screen.dart';
-import 'package:carhero/screens/auth/register_screen.dart';
-import 'package:carhero/screens/auth/forgot_password_screen.dart';
-import 'package:carhero/screens/chat_screen.dart';
-import 'package:carhero/screens/market_map_screen.dart';
-import 'package:carhero/screens/favorites_screen.dart';
-import 'package:carhero/screens/saved_searches_screen.dart';
-import 'package:carhero/screens/garage_screen.dart';
-import 'package:carhero/screens/analytics_screen.dart';
-import 'package:carhero/screens/profile_screen.dart';
-import 'package:carhero/screens/daily_scan_screen.dart';
-import 'package:carhero/screens/app_scaffold.dart';
+import 'package:kanvas/providers/auth_provider.dart';
+import 'package:kanvas/screens/home_screen.dart';
+import 'package:kanvas/screens/about_screen.dart';
+import 'package:kanvas/screens/contact_screen.dart';
+import 'package:kanvas/screens/shared_session_screen.dart';
+import 'package:kanvas/screens/auth/login_screen.dart';
+import 'package:kanvas/screens/auth/register_screen.dart';
+import 'package:kanvas/screens/auth/forgot_password_screen.dart';
+import 'package:kanvas/screens/chat_screen.dart';
+import 'package:kanvas/screens/profile_screen.dart';
+import 'package:kanvas/screens/app_scaffold.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorKey = GlobalKey<NavigatorState>();
@@ -115,39 +109,9 @@ final routerProvider = Provider<GoRouter>((ref) {
             ],
           ),
           GoRoute(
-            path: '/market-map',
-            pageBuilder: (context, state) =>
-                const NoTransitionPage(child: MarketMapScreen()),
-          ),
-          GoRoute(
-            path: '/favorites',
-            pageBuilder: (context, state) =>
-                const NoTransitionPage(child: FavoritesScreen()),
-          ),
-          GoRoute(
-            path: '/saved-searches',
-            pageBuilder: (context, state) =>
-                const NoTransitionPage(child: SavedSearchesScreen()),
-          ),
-          GoRoute(
-            path: '/garage',
-            pageBuilder: (context, state) =>
-                const NoTransitionPage(child: GarageScreen()),
-          ),
-          GoRoute(
-            path: '/analytics',
-            pageBuilder: (context, state) =>
-                const NoTransitionPage(child: AnalyticsScreen()),
-          ),
-          GoRoute(
             path: '/profile',
             pageBuilder: (context, state) =>
                 const NoTransitionPage(child: ProfileScreen()),
-          ),
-          GoRoute(
-            path: '/daily-scan',
-            pageBuilder: (context, state) =>
-                const NoTransitionPage(child: DailyScanScreen()),
           ),
         ],
       ),

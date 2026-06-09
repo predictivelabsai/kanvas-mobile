@@ -1,7 +1,7 @@
 class ApiConfig {
   static const String baseUrl = String.fromEnvironment(
     'API_BASE_URL',
-    defaultValue: 'https://carhero.chat/api/v1',
+    defaultValue: 'https://kanvas.ai/api',
   );
 
   static const Duration connectTimeout = Duration(seconds: 10);

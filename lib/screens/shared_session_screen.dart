@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
-import 'package:carhero/config/api_config.dart';
-import 'package:carhero/config/theme.dart';
-import 'package:carhero/models/chat.dart';
-import 'package:carhero/screens/chat/widgets/chat_message_bubble.dart';
+import 'package:kanvas/config/api_config.dart';
+import 'package:kanvas/config/theme.dart';
+import 'package:kanvas/models/chat.dart';
+import 'package:kanvas/screens/chat/widgets/chat_message_bubble.dart';
 
 class SharedSessionScreen extends StatefulWidget {
   final String token;
@@ -74,7 +74,7 @@ class _SharedSessionScreenState extends State<SharedSessionScreen> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              'CarHero',
+              'Kanvas',
               style: TextStyle(
                 fontFamily: 'Inter',
                 fontWeight: FontWeight.w800,

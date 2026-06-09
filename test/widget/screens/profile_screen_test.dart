@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:carhero/config/theme.dart';
-import 'package:carhero/models/profile.dart';
-import 'package:carhero/providers/profile_provider.dart';
-import 'package:carhero/screens/profile_screen.dart';
+import 'package:kanvas/config/theme.dart';
+import 'package:kanvas/models/profile.dart';
+import 'package:kanvas/providers/profile_provider.dart';
+import 'package:kanvas/screens/profile_screen.dart';
 
 class _FakeProfileNotifier extends ProfileNotifier {
   final UserProfile? _profile;
@@ -23,17 +23,8 @@ const _testProfile = UserProfile(
   city: 'Tallinn',
   currency: 'EUR',
   language: 'en',
-  budgetMinEur: 10000,
-  budgetMaxEur: 50000,
-  preferredMakes: ['BMW', 'Audi'],
-  preferredBodyTypes: ['SUV'],
-  preferredFuelTypes: ['Petrol'],
-  preferredTransmission: 'Automatic',
-  maxMileageKm: 100000,
-  minYear: 2018,
-  maxYear: 2024,
-  notifyNewListings: true,
-  notifyPriceDrops: true,
+  preferredMediums: ['Oil on canvas', 'Watercolor'],
+  preferredPeriods: ['Contemporary'],
   notifyWeeklyDigest: false,
 );
 
@@ -68,7 +59,6 @@ void main() {
       await tester.pumpWidget(_buildProfileScreen());
       await tester.pumpAndSettle();
 
-      // Text fields should contain profile data
       expect(find.text('Jane Doe'), findsOneWidget);
       expect(find.text('jane@example.com'), findsOneWidget);
       expect(find.text('+372 555 1234'), findsOneWidget);
@@ -83,56 +73,29 @@ void main() {
       expect(find.text('Save Account'), findsOneWidget);
     });
 
-    testWidgets('renders Search Preferences section header', (tester) async {
+    testWidgets('renders Art Preferences section header', (tester) async {
       await tester.pumpWidget(_buildProfileScreen());
       await tester.pumpAndSettle();
 
-      expect(find.text('Search Preferences'), findsOneWidget);
+      expect(find.text('Art Preferences'), findsOneWidget);
     });
 
-    testWidgets('renders Budget Range label', (tester) async {
+    testWidgets('renders Preferred Mediums chip group', (tester) async {
       await tester.pumpWidget(_buildProfileScreen());
       await tester.pumpAndSettle();
 
-      expect(find.text('Budget Range'), findsOneWidget);
+      expect(find.text('Preferred Mediums'), findsOneWidget);
+      expect(find.widgetWithText(FilterChip, 'Oil on canvas'), findsOneWidget);
+      expect(find.widgetWithText(FilterChip, 'Watercolor'), findsOneWidget);
     });
 
-    testWidgets('renders Preferred Makes chip group', (tester) async {
+    testWidgets('renders Preferred Periods chip group', (tester) async {
       await tester.pumpWidget(_buildProfileScreen());
       await tester.pumpAndSettle();
 
-      expect(find.text('Preferred Makes'), findsOneWidget);
-      // BMW and Audi should appear as FilterChips
-      expect(find.widgetWithText(FilterChip, 'BMW'), findsOneWidget);
-      expect(find.widgetWithText(FilterChip, 'Audi'), findsOneWidget);
-    });
-
-    testWidgets('renders Body Types chip group', (tester) async {
-      await tester.pumpWidget(_buildProfileScreen());
-      await tester.pumpAndSettle();
-
-      expect(find.text('Body Types'), findsOneWidget);
-      expect(find.widgetWithText(FilterChip, 'SUV'), findsOneWidget);
-      expect(find.widgetWithText(FilterChip, 'Sedan'), findsOneWidget);
-    });
-
-    testWidgets('renders Fuel Types chip group', (tester) async {
-      await tester.pumpWidget(_buildProfileScreen());
-      await tester.pumpAndSettle();
-
-      expect(find.text('Fuel Types'), findsOneWidget);
-      expect(find.widgetWithText(FilterChip, 'Petrol'), findsOneWidget);
-      expect(find.widgetWithText(FilterChip, 'Diesel'), findsOneWidget);
-    });
-
-    testWidgets('renders Transmission choice chips', (tester) async {
-      await tester.pumpWidget(_buildProfileScreen());
-      await tester.pumpAndSettle();
-
-      expect(find.text('Transmission'), findsOneWidget);
-      expect(find.widgetWithText(ChoiceChip, 'Any'), findsOneWidget);
-      expect(find.widgetWithText(ChoiceChip, 'Automatic'), findsOneWidget);
-      expect(find.widgetWithText(ChoiceChip, 'Manual'), findsOneWidget);
+      expect(find.text('Preferred Periods'), findsOneWidget);
+      expect(find.widgetWithText(FilterChip, 'Contemporary'), findsOneWidget);
+      expect(find.widgetWithText(FilterChip, 'Modern'), findsOneWidget);
     });
 
     testWidgets('renders Save Preferences button', (tester) async {
@@ -146,7 +109,6 @@ void main() {
       await tester.pumpWidget(_buildProfileScreen());
       await tester.pumpAndSettle();
 
-      // Scroll down to reveal Notifications section
       await tester.scrollUntilVisible(
         find.text('Notifications'),
         200,
@@ -156,23 +118,18 @@ void main() {
       expect(find.text('Notifications'), findsOneWidget);
     });
 
-    testWidgets('renders notification toggle switches', (tester) async {
+    testWidgets('renders notification toggle switch', (tester) async {
       await tester.pumpWidget(_buildProfileScreen());
       await tester.pumpAndSettle();
 
-      // Scroll down to notification toggles
       await tester.scrollUntilVisible(
-        find.text('New listings matching preferences'),
+        find.text('Weekly art market digest'),
         200,
         scrollable: find.byType(Scrollable).first,
       );
 
-      expect(find.text('New listings matching preferences'), findsOneWidget);
-      expect(find.text('Price drops on favorites'), findsOneWidget);
-      expect(find.text('Weekly market digest'), findsOneWidget);
-
-      // SwitchListTile widgets
-      expect(find.byType(SwitchListTile), findsNWidgets(3));
+      expect(find.text('Weekly art market digest'), findsOneWidget);
+      expect(find.byType(SwitchListTile), findsOneWidget);
     });
 
     testWidgets('renders Save Notifications button', (tester) async {
@@ -194,10 +151,8 @@ void main() {
       await tester.pumpWidget(_buildProfileScreen());
       await tester.pumpAndSettle();
 
-      // All three section headers exist in the widget tree
       expect(find.text('Account'), findsOneWidget);
-      expect(find.text('Search Preferences'), findsOneWidget);
-      // Scroll to reveal Notifications
+      expect(find.text('Art Preferences'), findsOneWidget);
       await tester.scrollUntilVisible(
         find.text('Notifications'),
         200,
@@ -217,34 +172,7 @@ void main() {
       await tester.pumpWidget(_buildProfileScreen());
       await tester.pumpAndSettle();
 
-      // Three ElevatedButton save buttons
       expect(find.byType(ElevatedButton), findsNWidgets(3));
-    });
-
-    testWidgets('renders Year Range label and fields', (tester) async {
-      await tester.pumpWidget(_buildProfileScreen());
-      await tester.pumpAndSettle();
-
-      await tester.scrollUntilVisible(
-        find.text('Year Range'),
-        200,
-        scrollable: find.byType(Scrollable).first,
-      );
-
-      expect(find.text('Year Range'), findsOneWidget);
-    });
-
-    testWidgets('renders Max Mileage field', (tester) async {
-      await tester.pumpWidget(_buildProfileScreen());
-      await tester.pumpAndSettle();
-
-      await tester.scrollUntilVisible(
-        find.text('Max Mileage (km)'),
-        200,
-        scrollable: find.byType(Scrollable).first,
-      );
-
-      expect(find.text('Max Mileage (km)'), findsOneWidget);
     });
   });
 }

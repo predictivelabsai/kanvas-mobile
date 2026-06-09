@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:carhero/config/theme.dart';
-import 'package:carhero/models/agent.dart';
-import 'package:carhero/providers/agent_provider.dart';
-import 'package:carhero/screens/chat/widgets/welcome_message.dart';
+import 'package:kanvas/config/theme.dart';
+import 'package:kanvas/models/agent.dart';
+import 'package:kanvas/providers/agent_provider.dart';
+import 'package:kanvas/screens/chat/widgets/welcome_message.dart';
 
 Widget _wrapWidget(Widget child) {
   return ProviderScope(
@@ -23,14 +23,14 @@ void main() {
       await tester.pumpWidget(_wrapWidget(WelcomeMessage(onPromptTap: (_) {})));
       await tester.pumpAndSettle();
 
-      expect(find.text('CarHero AI Advisor'), findsOneWidget);
+      expect(find.text('Kanvas AI Advisor'), findsOneWidget);
     });
 
     testWidgets('renders subtitle description', (tester) async {
       await tester.pumpWidget(_wrapWidget(WelcomeMessage(onPromptTap: (_) {})));
       await tester.pumpAndSettle();
 
-      expect(find.textContaining('premium European cars'), findsOneWidget);
+      expect(find.textContaining('Baltic art market'), findsOneWidget);
     });
 
     testWidgets('renders Try asking header', (tester) async {
@@ -46,14 +46,14 @@ void main() {
       await tester.pumpWidget(_wrapWidget(WelcomeMessage(onPromptTap: (_) {})));
       await tester.pumpAndSettle();
 
-      expect(find.textContaining('BMW 3 Series'), findsOneWidget);
+      expect(find.textContaining('Konrad Mägi'), findsOneWidget);
     });
 
-    testWidgets('renders CH logo box', (tester) async {
+    testWidgets('renders K logo box', (tester) async {
       await tester.pumpWidget(_wrapWidget(WelcomeMessage(onPromptTap: (_) {})));
       await tester.pumpAndSettle();
 
-      expect(find.text('CH'), findsOneWidget);
+      expect(find.text('K'), findsOneWidget);
     });
 
     testWidgets('tapping a prompt chip calls onPromptTap with text', (
@@ -68,10 +68,10 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      await tester.tap(find.textContaining('BMW 3 Series'));
+      await tester.tap(find.textContaining('Konrad Mägi'));
       await tester.pump();
 
-      expect(tappedPrompt, contains('BMW 3 Series'));
+      expect(tappedPrompt, contains('Konrad Mägi'));
     });
   });
 }

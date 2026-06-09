@@ -1,5 +1,5 @@
-import 'package:carhero/models/session.dart';
-import 'package:carhero/services/api_client.dart';
+import 'package:kanvas/models/session.dart';
+import 'package:kanvas/services/api_client.dart';
 
 class SessionService {
   final ApiClient _client;
@@ -26,7 +26,7 @@ class SessionService {
   }
 
   Future<ShareResponse> shareSession(int sessionId) async {
-    final json = await _client.post('/sessions/$sessionId/share');
+    final json = await _client.post('/chat/share', data: {'sid': sessionId});
     return ShareResponse.fromJson(json);
   }
 }

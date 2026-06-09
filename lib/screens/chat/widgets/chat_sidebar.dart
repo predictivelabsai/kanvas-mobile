@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:carhero/config/theme.dart';
-import 'package:carhero/providers/auth_provider.dart';
-import 'package:carhero/providers/chat_provider.dart';
-import 'package:carhero/providers/agent_provider.dart';
-import 'package:carhero/providers/session_provider.dart';
-import 'package:carhero/screens/chat/widgets/session_tile.dart';
+import 'package:kanvas/config/theme.dart';
+import 'package:kanvas/providers/auth_provider.dart';
+import 'package:kanvas/providers/chat_provider.dart';
+import 'package:kanvas/providers/agent_provider.dart';
+import 'package:kanvas/providers/session_provider.dart';
+import 'package:kanvas/screens/chat/widgets/session_tile.dart';
 
 class ChatSidebar extends ConsumerWidget {
   const ChatSidebar({super.key});
@@ -195,7 +195,7 @@ class ChatSidebar extends ConsumerWidget {
                         // Send the agent prefix as a starting prompt
                         ref
                             .read(chatProvider.notifier)
-                            .sendMessage(agent.prefix, lang: 'en');
+                            .sendMessage(agent.prefix);
                       },
                     );
                   },
@@ -228,59 +228,27 @@ class ChatSidebar extends ConsumerWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 children: [
                   _WorkspaceLink(
-                    icon: Icons.radar_outlined,
-                    label: 'Daily Scan',
-                    onTap: () {
-                      Navigator.of(context).pop();
-                      context.go('/daily-scan');
-                    },
-                  ),
-                  _WorkspaceLink(
-                    icon: Icons.map_outlined,
-                    label: 'Market Map',
-                    onTap: () {
-                      Navigator.of(context).pop();
-                      context.go('/market-map');
-                    },
-                  ),
-                  _WorkspaceLink(
-                    icon: Icons.favorite_outline,
-                    label: 'Favorites',
-                    onTap: () {
-                      Navigator.of(context).pop();
-                      context.go('/favorites');
-                    },
-                  ),
-                  _WorkspaceLink(
-                    icon: Icons.saved_search,
-                    label: 'Saved Searches',
-                    onTap: () {
-                      Navigator.of(context).pop();
-                      context.go('/saved-searches');
-                    },
-                  ),
-                  _WorkspaceLink(
-                    icon: Icons.garage_outlined,
-                    label: 'My Garage',
-                    onTap: () {
-                      Navigator.of(context).pop();
-                      context.go('/garage');
-                    },
-                  ),
-                  _WorkspaceLink(
-                    icon: Icons.analytics_outlined,
-                    label: 'Analytics',
-                    onTap: () {
-                      Navigator.of(context).pop();
-                      context.go('/analytics');
-                    },
-                  ),
-                  _WorkspaceLink(
                     icon: Icons.person_outline,
                     label: 'Profile',
                     onTap: () {
                       Navigator.of(context).pop();
                       context.go('/profile');
+                    },
+                  ),
+                  _WorkspaceLink(
+                    icon: Icons.info_outline,
+                    label: 'About',
+                    onTap: () {
+                      Navigator.of(context).pop();
+                      context.go('/about');
+                    },
+                  ),
+                  _WorkspaceLink(
+                    icon: Icons.mail_outline,
+                    label: 'Contact',
+                    onTap: () {
+                      Navigator.of(context).pop();
+                      context.go('/contact');
                     },
                   ),
                 ],

@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:carhero/config/theme.dart';
-import 'package:carhero/models/chat.dart';
+import 'package:kanvas/config/theme.dart';
+import 'package:kanvas/models/chat.dart';
 
 class ToolExecutionCard extends StatelessWidget {
   final ToolCall toolCall;

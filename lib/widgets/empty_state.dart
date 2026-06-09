@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:carhero/config/theme.dart';
+import 'package:kanvas/config/theme.dart';
 
 class EmptyState extends StatelessWidget {
   final IconData icon;

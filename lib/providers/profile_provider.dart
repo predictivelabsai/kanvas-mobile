@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:carhero/models/profile.dart';
-import 'package:carhero/services/profile_service.dart';
-import 'package:carhero/providers/auth_provider.dart';
+import 'package:kanvas/models/profile.dart';
+import 'package:kanvas/services/profile_service.dart';
+import 'package:kanvas/providers/auth_provider.dart';
 
 final profileServiceProvider = Provider<ProfileService>((ref) {
   return ProfileService(ref.read(apiClientProvider));

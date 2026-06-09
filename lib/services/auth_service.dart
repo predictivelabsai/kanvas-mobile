@@ -1,5 +1,5 @@
-import 'package:carhero/models/auth.dart';
-import 'package:carhero/services/api_client.dart';
+import 'package:kanvas/models/auth.dart';
+import 'package:kanvas/services/api_client.dart';
 
 class AuthService {
   final ApiClient _client;
@@ -8,7 +8,7 @@ class AuthService {
 
   Future<AuthResponse> login(String email, String password) async {
     final json = await _client.post(
-      '/auth/login',
+      '/auth/token',
       data: LoginRequest(email: email, password: password).toJson(),
     );
     return AuthResponse.fromJson(json);

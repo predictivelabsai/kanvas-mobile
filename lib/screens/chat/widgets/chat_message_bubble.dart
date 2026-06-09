@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:carhero/config/theme.dart';
-import 'package:carhero/models/chat.dart';
-import 'package:carhero/screens/chat/widgets/tool_execution_card.dart';
-import 'package:carhero/screens/chat/widgets/listing_card.dart';
+import 'package:kanvas/config/theme.dart';
+import 'package:kanvas/models/chat.dart';
+import 'package:kanvas/screens/chat/widgets/tool_execution_card.dart';
 
 class ChatMessageBubble extends StatelessWidget {
   final ChatMessage message;
@@ -81,8 +80,9 @@ class ChatMessageBubble extends StatelessWidget {
                               child: SizedBox(
                                 width: 20,
                                 height: 20,
-                                child:
-                                    CircularProgressIndicator(strokeWidth: 2),
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                ),
                               ),
                             ),
                           ),
@@ -173,14 +173,11 @@ class ChatMessageBubble extends StatelessWidget {
             ),
           ],
 
-          // Inline artifacts (listings)
+          // Inline artifacts
           if (message.artifacts.isNotEmpty) ...[
             const SizedBox(height: 8),
-            ...message.artifacts.map((artifact) {
-              if (artifact.kind == 'listing' || artifact.kind == 'listings') {
-                return _buildListingArtifact(artifact);
-              }
-              return Card(
+            ...message.artifacts.map(
+              (artifact) => Card(
                 margin: const EdgeInsets.only(bottom: 6),
                 child: Padding(
                   padding: const EdgeInsets.all(10),
@@ -203,36 +200,11 @@ class ChatMessageBubble extends StatelessWidget {
                     ],
                   ),
                 ),
-              );
-            }),
+              ),
+            ),
           ],
         ],
       ),
     );
-  }
-
-  Widget _buildListingArtifact(Artifact artifact) {
-    final data = artifact.data;
-    if (data.containsKey('listings')) {
-      final listings = data['listings'] as List<dynamic>? ?? [];
-      if (listings.isEmpty) return const SizedBox.shrink();
-      return SizedBox(
-        height: 180,
-        child: ListView.separated(
-          scrollDirection: Axis.horizontal,
-          padding: const EdgeInsets.symmetric(vertical: 4),
-          itemCount: listings.length,
-          separatorBuilder: (_, __) => const SizedBox(width: 8),
-          itemBuilder: (ctx, i) => SizedBox(
-            width: 260,
-            child: ListingCard.fromJson(
-              listings[i] as Map<String, dynamic>,
-              compact: true,
-            ),
-          ),
-        ),
-      );
-    }
-    return ListingCard.fromJson(data);
   }
 }

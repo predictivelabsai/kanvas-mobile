@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:carhero/config/theme.dart';
-import 'package:carhero/providers/agent_provider.dart';
+import 'package:kanvas/config/theme.dart';
+import 'package:kanvas/providers/agent_provider.dart';
 
 class WelcomeMessage extends ConsumerWidget {
   final ValueChanged<String> onPromptTap;
@@ -9,10 +9,10 @@ class WelcomeMessage extends ConsumerWidget {
   const WelcomeMessage({super.key, required this.onPromptTap});
 
   static const _fallbackPrompts = [
-    'Find me a BMW 3 Series under 30,000 EUR',
-    'Compare Audi A4 vs Mercedes C-Class',
-    'What are the best SUVs for families in 2024?',
-    'Show me Porsche 911 listings in Germany',
+    'Tell me about Konrad Mägi and his market trajectory',
+    'Compare Adamson-Eric and Ado Vabbe as investments',
+    'What are the auction trends for Estonian contemporary art?',
+    'Estimate the value of an Endel Kõks oil painting from the 1960s',
   ];
 
   @override
@@ -33,7 +33,6 @@ class WelcomeMessage extends ConsumerWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            // Logo / icon area
             Container(
               width: 72,
               height: 72,
@@ -43,7 +42,7 @@ class WelcomeMessage extends ConsumerWidget {
               ),
               child: const Center(
                 child: Text(
-                  'CH',
+                  'K',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 28,
@@ -55,9 +54,8 @@ class WelcomeMessage extends ConsumerWidget {
             ),
             const SizedBox(height: 20),
 
-            // Title
             const Text(
-              'CarHero AI Advisor',
+              'Kanvas AI Advisor',
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.w700,
@@ -66,9 +64,8 @@ class WelcomeMessage extends ConsumerWidget {
             ),
             const SizedBox(height: 8),
 
-            // Subtitle
             Text(
-              'Your intelligent assistant for finding, comparing, and analyzing premium European cars.',
+              'Your intelligent assistant for researching artists, tracking auctions, and analyzing the Baltic art market.',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 15,
@@ -78,7 +75,6 @@ class WelcomeMessage extends ConsumerWidget {
             ),
             const SizedBox(height: 32),
 
-            // Example prompts header
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
@@ -92,7 +88,6 @@ class WelcomeMessage extends ConsumerWidget {
             ),
             const SizedBox(height: 10),
 
-            // Prompt chips
             ...prompts
                 .take(4)
                 .map(

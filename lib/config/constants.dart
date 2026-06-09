@@ -1,46 +1,48 @@
 class AppConstants {
-  static const List<String> brands = [
-    'BMW',
-    'Mercedes-Benz',
-    'Audi',
-    'Porsche',
-    'Jaguar',
-    'Land Rover',
-    'Volvo',
-    'Tesla',
-    'Lexus',
-    'Maserati',
-    'Alfa Romeo',
-    'Ferrari',
+  static const List<String> mediums = [
+    'Oil on canvas',
+    'Watercolor',
+    'Acrylic',
+    'Mixed media',
+    'Print',
+    'Sculpture',
+    'Photography',
+    'Drawing',
+    'Digital',
   ];
 
-  static const List<String> bodyTypes = [
-    'Sedan',
-    'SUV',
-    'Estate',
-    'Coupe',
-    'Convertible',
-    'Hatchback',
+  static const List<String> periods = [
+    'Contemporary',
+    'Modern',
+    'Post-War',
+    'Pre-War',
+    'Classical',
   ];
 
-  static const List<String> fuelTypes = [
-    'Petrol',
-    'Diesel',
-    'Electric',
-    'Hybrid',
-    'Plugin Hybrid',
+  static const List<String> categories = [
+    'Painting',
+    'Sculpture',
+    'Print',
+    'Photography',
+    'Drawing',
+    'Mixed Media',
   ];
 
-  static const List<String> transmissions = ['Automatic', 'Manual'];
+  static const List<String> auctionHouses = [
+    'Haus',
+    'Bukowskis',
+    'Stockholms Auktionsverk',
+    'Galerie',
+    'Other',
+  ];
 
   static const Map<String, String> countries = {
-    'GB': 'United Kingdom',
-    'DE': 'Germany',
     'EE': 'Estonia',
-    'LT': 'Lithuania',
     'LV': 'Latvia',
+    'LT': 'Lithuania',
+    'FI': 'Finland',
     'SE': 'Sweden',
-    'EU': 'Other EU',
+    'DE': 'Germany',
   };
 
   static const List<String> supportedLocales = [

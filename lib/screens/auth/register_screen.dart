@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:carhero/config/theme.dart';
-import 'package:carhero/providers/auth_provider.dart';
-import 'package:carhero/utils/validators.dart';
+import 'package:kanvas/config/theme.dart';
+import 'package:kanvas/providers/auth_provider.dart';
+import 'package:kanvas/utils/validators.dart';
 
 class RegisterScreen extends ConsumerStatefulWidget {
   const RegisterScreen({super.key});
@@ -144,7 +144,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
 
                   // Logo
                   Text(
-                    'CarHero',
+                    'Kanvas',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontFamily: 'Inter',

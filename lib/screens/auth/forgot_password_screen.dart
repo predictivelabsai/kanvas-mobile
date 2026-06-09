@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:carhero/config/theme.dart';
-import 'package:carhero/utils/validators.dart';
+import 'package:kanvas/config/theme.dart';
+import 'package:kanvas/utils/validators.dart';
 
 class ForgotPasswordScreen extends ConsumerStatefulWidget {
   const ForgotPasswordScreen({super.key});
@@ -78,7 +78,7 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
 
                   // Logo
                   Text(
-                    'CarHero',
+                    'Kanvas',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontFamily: 'Inter',
