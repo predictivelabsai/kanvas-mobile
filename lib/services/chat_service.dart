@@ -12,7 +12,8 @@ class ChatService {
     int? sessionId,
     required String token,
   }) async* {
-    final uri = Uri.parse('${ApiConfig.baseUrl}/app/chat');
+    final base = ApiConfig.baseUrl.replaceFirst(RegExp(r'/api$'), '');
+    final uri = Uri.parse('$base/app/chat');
 
     final request = http.Request('POST', uri);
     request.headers['Content-Type'] = 'application/x-www-form-urlencoded';
