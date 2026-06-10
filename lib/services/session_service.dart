@@ -26,7 +26,7 @@ class SessionService {
   }
 
   Future<ShareResponse> shareSession(int sessionId) async {
-    final json = await _client.post('/chat/share', data: {'sid': sessionId});
+    final json = await _client.post('/sessions/$sessionId/share', data: {});
     return ShareResponse.fromJson(json);
   }
 }

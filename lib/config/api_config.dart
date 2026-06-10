@@ -1,7 +1,7 @@
 class ApiConfig {
   static const String baseUrl = String.fromEnvironment(
     'API_BASE_URL',
-    defaultValue: 'https://kanvas.ai/api',
+    defaultValue: 'https://api.kanvas.ai',
   );
 
   static const Duration connectTimeout = Duration(seconds: 10);

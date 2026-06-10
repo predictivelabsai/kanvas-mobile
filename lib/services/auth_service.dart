@@ -8,7 +8,7 @@ class AuthService {
 
   Future<AuthResponse> login(String email, String password) async {
     final json = await _client.post(
-      '/auth/token',
+      '/auth/login',
       data: LoginRequest(email: email, password: password).toJson(),
     );
     return AuthResponse.fromJson(json);

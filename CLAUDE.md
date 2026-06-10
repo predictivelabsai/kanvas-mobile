@@ -26,11 +26,11 @@ flutter analyze --no-fatal-infos --no-fatal-warnings
 # Format code
 dart format lib/ test/
 
-# Run the app (default API: https://kanvas.ai/api)
+# Run the app (default API: https://api.kanvas.ai)
 flutter run
 
 # Run with custom API URL
-flutter run --dart-define=API_BASE_URL=http://localhost:5009/api
+flutter run --dart-define=API_BASE_URL=http://localhost:5012
 
 # Generate app icons (after changing assets/images/app_icon.png)
 dart run flutter_launcher_icons
@@ -38,21 +38,21 @@ dart run flutter_launcher_icons
 
 ## Architecture
 
-Flutter mobile client for the Kanvas.ai art advisory platform (backend at `../kanvas/`). Connects to a FastHTML backend via JWT-authenticated REST + SSE endpoints. No local database — all state comes from the API or in-memory Riverpod providers.
+Flutter mobile client for the Kanvas.ai art advisory platform. Connects to a standalone FastAPI backend at `api.kanvas.ai` via JWT-authenticated REST + SSE endpoints. No local database — all state comes from the API or in-memory Riverpod providers.
 
-### Backend (Kanvas)
+### Backend (Kanvas API)
 
-The Kanvas backend is a FastHTML (Python) app with 8 specialist LLM agents for the Estonian/Baltic art market. Key mobile-facing endpoints:
+Standalone FastAPI (Python) service at `https://api.kanvas.ai` with 8 specialist LLM agents for the Estonian/Baltic art market. Key mobile-facing endpoints:
 
-- `POST /api/auth/token` — email/password login → JWT
-- `POST /api/auth/register` — register → JWT
-- `POST /api/auth/google` — Google ID token → JWT
-- `GET /api/auth/me` — validate Bearer token → user info
-- `POST /app/chat` — SSE streaming chat (form-encoded: `msg`, `sid`; accepts Bearer token)
-- `GET /api/agents` — list 8 agent specs
-- `GET /api/sessions` — list user's sessions
-- `DELETE /api/sessions/{id}` — delete a session
-- `POST /api/chat/share` — generate share URL for a session
+- `POST /auth/login` — email/password login → JWT
+- `POST /auth/register` — register → JWT
+- `POST /auth/google` — Google ID token → JWT
+- `GET /auth/me` — validate Bearer token → user info
+- `POST /chat` — SSE streaming chat (JSON: `message`, `session_id`; accepts Bearer token)
+- `GET /agents` — list 8 agent specs
+- `GET /sessions` — list user's sessions
+- `DELETE /sessions/{id}` — delete a session
+- `POST /sessions/{id}/share` — generate share URL for a session
 
 ### State & Data Flow
 
@@ -73,8 +73,8 @@ connectivityProvider (StreamNotifier) → AppScaffold (offline banner)
 
 Chat uses **raw `http` package** (not Dio) because Dio doesn't support streaming POST responses well. The flow:
 
-1. `ChatService.streamChat()` sends a form-encoded POST to `/app/chat` with `Accept: text/event-stream` and `Authorization: Bearer <token>`
-2. Request body: `msg=<message>&sid=<sessionId>` (application/x-www-form-urlencoded)
+1. `ChatService.streamChat()` sends a JSON POST to `/chat` on `api.kanvas.ai` with `Accept: text/event-stream` and `Authorization: Bearer <token>`
+2. Request body: `{"message": "<message>", "session_id": <sessionId>}` (application/json)
 3. Parses the SSE wire format (`event: <name>\ndata: <json>\n\n`) into a sealed `ChatEvent` hierarchy
 4. `ChatNotifier` consumes the stream and transitions through: idle → add user message → streaming (accumulate tokens, track tool calls) → finalize assistant message → idle
 5. 8 event types: `session`, `agent_route`, `token`, `tool_start`, `tool_end`, `artifact_show`, `done`, `error`

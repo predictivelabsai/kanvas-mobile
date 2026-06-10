@@ -12,26 +12,20 @@ class ChatService {
     int? sessionId,
     required String token,
   }) async* {
-    final base = ApiConfig.baseUrl.replaceFirst(RegExp(r'/api$'), '');
-    final uri = Uri.parse('$base/app/chat');
+    final uri = Uri.parse('${ApiConfig.baseUrl}/chat');
 
     final request = http.Request('POST', uri);
-    request.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+    request.headers['Content-Type'] = 'application/json';
     request.headers['Accept'] = 'text/event-stream';
     if (token.isNotEmpty) {
       request.headers['Authorization'] = 'Bearer $token';
     }
 
-    final params = <String, String>{'msg': message};
+    final body = <String, dynamic>{'message': message};
     if (sessionId != null) {
-      params['sid'] = sessionId.toString();
+      body['session_id'] = sessionId;
     }
-    request.body = params.entries
-        .map(
-          (e) =>
-              '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}',
-        )
-        .join('&');
+    request.body = jsonEncode(body);
 
     final response = await http.Client().send(request);
 
