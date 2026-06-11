@@ -362,6 +362,30 @@ See `.github/workflows/ci.yml` and `.github/workflows/deploy-android.yml`.
 | `KEY_PASSWORD` | Keystore key password |
 | `STORE_PASSWORD` | Keystore store password |
 
+### Versioning (build number bumped per deploy)
+
+The version in `pubspec.yaml` is `versionName+versionCode` (e.g. `1.0.2+2`). The
+**versionName** (`1.0.2`) is the human-facing semantic version — bump it by hand in
+`pubspec.yaml` when you cut a meaningful release. The **versionCode** is the integer
+Android/Play use to order builds; it MUST increase on every build or the store rejects
+it and Firebase can't distinguish releases.
+
+CI overrides the versionCode automatically by passing the GitHub Actions run number to
+every release build, so each deploy gets a unique, monotonically increasing build:
+
+```bash
+flutter build apk       --release --build-number=${{ github.run_number }} --dart-define=API_BASE_URL=https://api.kanvas.ai
+flutter build appbundle --release --build-number=${{ github.run_number }} --dart-define=API_BASE_URL=https://api.kanvas.ai
+```
+
+This is wired into both `ci.yml` (push to main) and `deploy-android.yml` (manual
+dispatch). Result: Firebase releases read e.g. `1.0.2 (47)`, `1.0.2 (48)`, … instead of
+every build colliding on the same `1.0.1 (2)`. The `+2` in `pubspec.yaml` is only the
+local-build fallback; CI always supplies its own build number.
+
+**To bump before a release:** edit `version:` in `pubspec.yaml` (versionName), commit,
+and push — CI handles the build number. No need to touch the versionCode by hand.
+
 ---
 
 ## 10. Environment Configuration

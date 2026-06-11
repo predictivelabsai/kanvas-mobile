@@ -93,10 +93,10 @@ jobs:
           fi
 
       - name: Build APK
-        run: flutter build apk --release --dart-define=API_BASE_URL=https://api.kanvas.ai
+        run: flutter build apk --release --build-number=${{ github.run_number }} --dart-define=API_BASE_URL=https://api.kanvas.ai
 
       - name: Build App Bundle
-        run: flutter build appbundle --release --dart-define=API_BASE_URL=https://api.kanvas.ai
+        run: flutter build appbundle --release --build-number=${{ github.run_number }} --dart-define=API_BASE_URL=https://api.kanvas.ai
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
