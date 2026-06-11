@@ -121,7 +121,9 @@ class ChartArtifactCard extends StatelessWidget {
 
   // ── Bar ────────────────────────────────────────────────────────────
   Widget _bar(Map<String, dynamic> trace) {
-    final xs = (trace['x'] as List? ?? const []).map((e) => e.toString()).toList();
+    final xs = (trace['x'] as List? ?? const [])
+        .map((e) => e.toString())
+        .toList();
     final ys = (trace['y'] as List? ?? const []).map(_toDouble).toList();
     final n = xs.length < ys.length ? xs.length : ys.length;
     if (n == 0) return _fallback();
@@ -148,9 +150,12 @@ class ChartArtifactCard extends StatelessWidget {
         ),
         borderData: FlBorderData(show: false),
         titlesData: FlTitlesData(
-          topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-          rightTitles:
-              const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+          topTitles: const AxisTitles(
+            sideTitles: SideTitles(showTitles: false),
+          ),
+          rightTitles: const AxisTitles(
+            sideTitles: SideTitles(showTitles: false),
+          ),
           leftTitles: AxisTitles(
             sideTitles: SideTitles(
               showTitles: true,
@@ -191,8 +196,9 @@ class ChartArtifactCard extends StatelessWidget {
                   toY: ys[i],
                   color: _palette[i % _palette.length],
                   width: n > 10 ? 9 : 16,
-                  borderRadius:
-                      const BorderRadius.vertical(top: Radius.circular(3)),
+                  borderRadius: const BorderRadius.vertical(
+                    top: Radius.circular(3),
+                  ),
                 ),
               ],
             ),
@@ -203,7 +209,9 @@ class ChartArtifactCard extends StatelessWidget {
 
   // ── Line ───────────────────────────────────────────────────────────
   Widget _line(Map<String, dynamic> trace) {
-    final xs = (trace['x'] as List? ?? const []).map((e) => e.toString()).toList();
+    final xs = (trace['x'] as List? ?? const [])
+        .map((e) => e.toString())
+        .toList();
     final ys = (trace['y'] as List? ?? const []).map(_toDouble).toList();
     final n = xs.length < ys.length ? xs.length : ys.length;
     if (n == 0) return _fallback();
@@ -218,9 +226,12 @@ class ChartArtifactCard extends StatelessWidget {
         ),
         borderData: FlBorderData(show: false),
         titlesData: FlTitlesData(
-          topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-          rightTitles:
-              const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+          topTitles: const AxisTitles(
+            sideTitles: SideTitles(showTitles: false),
+          ),
+          rightTitles: const AxisTitles(
+            sideTitles: SideTitles(showTitles: false),
+          ),
           leftTitles: AxisTitles(
             sideTitles: SideTitles(
               showTitles: true,
@@ -279,9 +290,12 @@ class ChartArtifactCard extends StatelessWidget {
 
   // ── Pie ────────────────────────────────────────────────────────────
   Widget _pie(Map<String, dynamic> trace) {
-    final labels =
-        (trace['labels'] as List? ?? const []).map((e) => e.toString()).toList();
-    final values = (trace['values'] as List? ?? const []).map(_toDouble).toList();
+    final labels = (trace['labels'] as List? ?? const [])
+        .map((e) => e.toString())
+        .toList();
+    final values = (trace['values'] as List? ?? const [])
+        .map(_toDouble)
+        .toList();
     final n = labels.length < values.length ? labels.length : values.length;
     if (n == 0) return _fallback();
     final total = values.take(n).fold<double>(0, (s, v) => s + v);

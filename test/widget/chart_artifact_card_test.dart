@@ -39,13 +39,17 @@ Artifact _artifact(String type, {bool pie = false}) => Artifact.fromJson({
 void main() {
   group('ChartArtifactCard', () {
     testWidgets('renders title and subtitle', (tester) async {
-      await tester.pumpWidget(_wrap(ChartArtifactCard(artifact: _artifact('bar'))));
+      await tester.pumpWidget(
+        _wrap(ChartArtifactCard(artifact: _artifact('bar'))),
+      );
       expect(find.text('Top Artists by Sales'), findsOneWidget);
       expect(find.text('3 data points'), findsOneWidget);
     });
 
     testWidgets('renders a bar chart', (tester) async {
-      await tester.pumpWidget(_wrap(ChartArtifactCard(artifact: _artifact('bar'))));
+      await tester.pumpWidget(
+        _wrap(ChartArtifactCard(artifact: _artifact('bar'))),
+      );
       expect(find.byType(BarChart), findsOneWidget);
     });
 
