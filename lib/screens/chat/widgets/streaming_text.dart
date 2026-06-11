@@ -3,6 +3,7 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:kanvas/config/theme.dart';
+import 'package:kanvas/utils/text_sanitize.dart';
 
 class StreamingText extends StatefulWidget {
   final String text;
@@ -54,7 +55,7 @@ class _StreamingTextState extends State<StreamingText>
         mainAxisSize: MainAxisSize.min,
         children: [
           MarkdownBody(
-            data: widget.text,
+            data: stripLeadingSql(widget.text),
             selectable: false,
             imageBuilder: (uri, title, alt) => Padding(
               padding: const EdgeInsets.symmetric(vertical: 8),

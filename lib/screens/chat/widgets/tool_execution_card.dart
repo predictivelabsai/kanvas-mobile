@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:kanvas/config/theme.dart';
 import 'package:kanvas/models/chat.dart';
@@ -23,18 +21,15 @@ class ToolExecutionCard extends StatelessWidget {
         .join(' ');
   }
 
-  String _prettyJson(Map<String, dynamic> json) {
-    try {
-      const encoder = JsonEncoder.withIndent('  ');
-      return encoder.convert(json);
-    } catch (_) {
-      return json.toString();
-    }
-  }
-
-  String _truncate(String text, int maxLen) {
-    if (text.length <= maxLen) return text;
-    return '${text.substring(0, maxLen)}...';
+  /// The output a tool returns can contain an embedded chart payload
+  /// (`...__ARTIFACT__{json}`) and, for query tools, raw SQL. Neither belongs
+  /// in the human-facing summary, so strip them before display.
+  String _cleanOutput(String text) {
+    var t = text;
+    final marker = t.indexOf('__ARTIFACT__');
+    if (marker != -1) t = t.substring(0, marker).trim();
+    if (t.length > 500) t = '${t.substring(0, 500)}...';
+    return t;
   }
 
   @override
@@ -83,20 +78,10 @@ class ToolExecutionCard extends StatelessWidget {
               ),
             ),
             children: [
-              // Args section
-              if (toolCall.args.isNotEmpty) ...[
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    'Arguments',
-                    style: TextStyle(
-                      fontSize: 11,
-                      fontWeight: FontWeight.w600,
-                      color: AppTheme.gray500,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 4),
+              // Output summary only — raw arguments (which can contain SQL or
+              // internal params) are intentionally not shown.
+              if (toolCall.output != null &&
+                  _cleanOutput(toolCall.output!).isNotEmpty)
                 Container(
                   width: double.infinity,
                   padding: const EdgeInsets.all(8),
@@ -105,50 +90,22 @@ class ToolExecutionCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(6),
                   ),
                   child: Text(
-                    _prettyJson(toolCall.args),
+                    _cleanOutput(toolCall.output!),
                     style: TextStyle(
-                      fontSize: 11,
-                      fontFamily: 'monospace',
+                      fontSize: 12,
                       color: AppTheme.gray500,
                       height: 1.4,
                     ),
                   ),
-                ),
-              ],
-
-              // Output section
-              if (toolCall.output != null && toolCall.output!.isNotEmpty) ...[
-                const SizedBox(height: 8),
+                )
+              else
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    'Output',
-                    style: TextStyle(
-                      fontSize: 11,
-                      fontWeight: FontWeight.w600,
-                      color: AppTheme.gray500,
-                    ),
+                    'No additional details.',
+                    style: TextStyle(fontSize: 12, color: AppTheme.gray400),
                   ),
                 ),
-                const SizedBox(height: 4),
-                Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: AppTheme.gray50,
-                    borderRadius: BorderRadius.circular(6),
-                  ),
-                  child: Text(
-                    _truncate(toolCall.output!, 500),
-                    style: TextStyle(
-                      fontSize: 11,
-                      fontFamily: 'monospace',
-                      color: AppTheme.gray500,
-                      height: 1.4,
-                    ),
-                  ),
-                ),
-              ],
             ],
           ),
         ),

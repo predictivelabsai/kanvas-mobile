@@ -192,10 +192,15 @@ class ChatSidebar extends ConsumerWidget {
                       onTap: () {
                         ref.read(chatProvider.notifier).newChat();
                         Navigator.of(context).pop();
-                        // Send the agent prefix as a starting prompt
-                        ref
-                            .read(chatProvider.notifier)
-                            .sendMessage(agent.prefix);
+                        // Prefer the routing prefix; fall back to a sample
+                        // prompt (or a generic ask) so tapping never sends an
+                        // empty message when the API omits `prefix`.
+                        final starter = agent.prefix.isNotEmpty
+                            ? agent.prefix
+                            : (agent.examplePrompts.isNotEmpty
+                                  ? agent.examplePrompts.first
+                                  : 'Tell me about ${agent.name}');
+                        ref.read(chatProvider.notifier).sendMessage(starter);
                       },
                     );
                   },
@@ -276,6 +281,16 @@ class _UserHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Anonymous users have no name/email; guard against empty-string
+    // substring (which throws RangeError and crashes the whole drawer).
+    final isSignedIn = name.isNotEmpty || email.isNotEmpty;
+    final displayName = name.isNotEmpty
+        ? name
+        : (email.isNotEmpty ? email : 'Guest');
+    final initial = displayName.isNotEmpty
+        ? displayName.substring(0, 1).toUpperCase()
+        : '?';
+
     return Container(
       padding: const EdgeInsets.fromLTRB(16, 12, 8, 12),
       decoration: BoxDecoration(
@@ -287,7 +302,7 @@ class _UserHeader extends StatelessWidget {
             radius: 18,
             backgroundColor: AppTheme.ink,
             child: Text(
-              (name.isNotEmpty ? name : email).substring(0, 1).toUpperCase(),
+              initial,
               style: const TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.w600,
@@ -300,18 +315,17 @@ class _UserHeader extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                if (name.isNotEmpty)
-                  Text(
-                    name,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 14,
-                    ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
                 Text(
-                  email,
+                  displayName,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 14,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                Text(
+                  isSignedIn ? email : 'Not signed in',
                   style: TextStyle(fontSize: 12, color: AppTheme.gray500),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
@@ -319,11 +333,12 @@ class _UserHeader extends StatelessWidget {
               ],
             ),
           ),
-          IconButton(
-            icon: Icon(Icons.logout, size: 18, color: AppTheme.gray500),
-            onPressed: onLogout,
-            tooltip: 'Log out',
-          ),
+          if (isSignedIn)
+            IconButton(
+              icon: Icon(Icons.logout, size: 18, color: AppTheme.gray500),
+              onPressed: onLogout,
+              tooltip: 'Log out',
+            ),
         ],
       ),
     );

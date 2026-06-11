@@ -17,15 +17,20 @@ class AgentOut {
     required this.examplePrompts,
   });
 
+  // Defensive parsing: the API may omit optional fields (e.g. `prefix`).
+  // A missing required String previously threw and silently emptied the
+  // agents list in the sidebar.
   factory AgentOut.fromJson(Map<String, dynamic> json) => AgentOut(
-    slug: json['slug'] as String,
-    name: json['name'] as String,
-    category: json['category'] as String,
-    icon: json['icon'] as String,
-    oneLiner: json['one_liner'] as String,
-    prefix: json['prefix'] as String,
-    examplePrompts: (json['example_prompts'] as List<dynamic>)
-        .map((e) => e as String)
-        .toList(),
+    slug: json['slug'] as String? ?? '',
+    name: json['name'] as String? ?? '',
+    category: json['category'] as String? ?? '',
+    icon: json['icon'] as String? ?? '•',
+    oneLiner: (json['one_liner'] ?? json['description'] ?? '') as String,
+    prefix: json['prefix'] as String? ?? '',
+    examplePrompts:
+        (json['example_prompts'] as List<dynamic>?)
+            ?.map((e) => e.toString())
+            .toList() ??
+        const [],
   );
 }

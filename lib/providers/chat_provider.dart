@@ -51,6 +51,11 @@ class ChatNotifier extends Notifier<ChatState> {
           case TokenEvent(:final text):
             buffer += text;
             state = state.copyWith(streamBuffer: buffer);
+          case ResetEvent():
+            // A tool-calling turn ended; discard its intermediate text
+            // (e.g. raw SQL) so only the final answer is shown/persisted.
+            buffer = '';
+            state = state.copyWith(streamBuffer: '');
           case ToolStartEvent(:final name, :final args):
             toolCalls.add(ToolCall(name: name, args: args));
             state = state.copyWith(activeToolCalls: List.of(toolCalls));

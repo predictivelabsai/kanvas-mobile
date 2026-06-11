@@ -5,6 +5,8 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:kanvas/config/theme.dart';
 import 'package:kanvas/models/chat.dart';
 import 'package:kanvas/screens/chat/widgets/tool_execution_card.dart';
+import 'package:kanvas/screens/chat/widgets/chart_artifact_card.dart';
+import 'package:kanvas/utils/text_sanitize.dart';
 
 class ChatMessageBubble extends StatelessWidget {
   final ChatMessage message;
@@ -64,7 +66,7 @@ class ChatMessageBubble extends StatelessWidget {
                     ),
                   )
                 : MarkdownBody(
-                    data: message.content,
+                    data: stripLeadingSql(message.content),
                     selectable: true,
                     imageBuilder: (uri, title, alt) => Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8),
@@ -173,33 +175,15 @@ class ChatMessageBubble extends StatelessWidget {
             ),
           ],
 
-          // Inline artifacts
+          // Inline artifacts (charts, etc.)
           if (message.artifacts.isNotEmpty) ...[
             const SizedBox(height: 8),
             ...message.artifacts.map(
-              (artifact) => Card(
-                margin: const EdgeInsets.only(bottom: 6),
-                child: Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      if (artifact.title != null)
-                        Text(
-                          artifact.title!,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 13,
-                          ),
-                        ),
-                      const SizedBox(height: 4),
-                      Text(
-                        artifact.kind,
-                        style: TextStyle(fontSize: 12, color: AppTheme.gray500),
-                      ),
-                    ],
-                  ),
+              (artifact) => ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxWidth: MediaQuery.of(context).size.width * 0.9,
                 ),
+                child: ChartArtifactCard(artifact: artifact),
               ),
             ),
           ],

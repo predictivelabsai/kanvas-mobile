@@ -46,6 +46,10 @@ class ArtifactEvent extends ChatEvent {
   ArtifactEvent(this.payload);
 }
 
+/// Sent when a model turn made tool calls; the text streamed so far was
+/// intermediate reasoning (e.g. raw SQL) and should be discarded.
+class ResetEvent extends ChatEvent {}
+
 class DoneEvent extends ChatEvent {
   final String slug;
   final int toolCount;
@@ -79,6 +83,8 @@ ChatEvent parseSseEvent(String name, Map<String, dynamic> data) {
         name: data['name'] as String,
         output: data['output'] as String? ?? '',
       );
+    case 'reset':
+      return ResetEvent();
     case 'artifact_show':
       return ArtifactEvent(data);
     case 'done':

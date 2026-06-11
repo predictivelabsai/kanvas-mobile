@@ -9,7 +9,9 @@ import 'package:kanvas/screens/chat/widgets/chat_input_bar.dart';
 import 'package:kanvas/screens/chat/widgets/chat_message_bubble.dart';
 import 'package:kanvas/screens/chat/widgets/streaming_text.dart';
 import 'package:kanvas/screens/chat/widgets/tool_execution_card.dart';
+import 'package:kanvas/screens/chat/widgets/chart_artifact_card.dart';
 import 'package:kanvas/screens/chat/widgets/welcome_message.dart';
+import 'package:kanvas/utils/text_sanitize.dart';
 import 'package:share_plus/share_plus.dart';
 
 class ChatScreen extends ConsumerStatefulWidget {
@@ -118,36 +120,8 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                 controller: scrollController,
                 padding: const EdgeInsets.all(12),
                 itemCount: artifacts.length,
-                itemBuilder: (ctx, i) {
-                  final artifact = artifacts[i];
-                  return Card(
-                    margin: const EdgeInsets.only(bottom: 8),
-                    child: Padding(
-                      padding: const EdgeInsets.all(12),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          if (artifact.title != null)
-                            Text(
-                              artifact.title!,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 14,
-                              ),
-                            ),
-                          const SizedBox(height: 4),
-                          Text(
-                            artifact.kind,
-                            style: TextStyle(
-                              color: AppTheme.gray500,
-                              fontSize: 12,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
+                itemBuilder: (ctx, i) =>
+                    ChartArtifactCard(artifact: artifacts[i]),
               ),
             ),
           ],
@@ -278,7 +252,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(
-                    chatState.error!,
+                    friendlyError(chatState.error!),
                     style: TextStyle(color: AppTheme.red600, fontSize: 13),
                   ),
                 ),
