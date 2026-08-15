@@ -22,9 +22,6 @@ class ReportService {
       data['details'] = details;
     }
 
-    await _client.post(
-      '/reports/ai-content',
-      data: data,
-    );
+    await _client.post('/reports/ai-content', data: data);
   }
 }
