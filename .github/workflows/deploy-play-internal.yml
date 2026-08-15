@@ -1,21 +1,39 @@
-name: Deploy Android
+name: Prepare or Deploy Google Play Internal
 
 on:
   workflow_dispatch:
     inputs:
+      upload_to_play:
+        description: Upload the signed AAB to the Google Play internal track
+        required: true
+        type: boolean
+        default: false
+      release_status:
+        description: Keep as draft until the release is ready for internal testers
+        required: true
+        type: choice
+        default: draft
+        options:
+          - draft
+          - completed
       release_notes:
-        description: Release notes for testers
+        description: English (United States) internal release notes
         required: false
-        default: "New build from CI"
+        default: Initial internal test release of Kanvas.
+
+permissions:
+  contents: read
+  id-token: write
 
 concurrency:
-  group: deploy-android
+  group: google-play-internal
   cancel-in-progress: false
 
 jobs:
-  deploy:
-    name: Build signed release & deploy to Firebase
+  release:
+    name: Build signed AAB and optionally upload internally
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
 
@@ -34,7 +52,10 @@ jobs:
       - name: Generate mocks and serialization code
         run: dart run build_runner build --delete-conflicting-outputs
 
-      - name: Run tests
+      - name: Analyze
+        run: flutter analyze --no-fatal-infos --no-fatal-warnings
+
+      - name: Test
         run: flutter test
 
       - name: Validate release signing secrets
@@ -79,42 +100,44 @@ jobs:
           fi
           echo "code=$code" >> "$GITHUB_OUTPUT"
 
-      - name: Build release APK
-        env:
-          KANVAS_REQUIRE_RELEASE_SIGNING: "true"
-        run: flutter build apk --release --build-number=${{ steps.version.outputs.code }} --dart-define=API_BASE_URL=https://api.kanvas.ai
-
-      - name: Build release App Bundle
+      - name: Build signed App Bundle
         env:
           KANVAS_REQUIRE_RELEASE_SIGNING: "true"
         run: flutter build appbundle --release --build-number=${{ steps.version.outputs.code }} --dart-define=API_BASE_URL=https://api.kanvas.ai
 
-      - name: Verify release signatures
+      - name: Verify AAB signature
         run: |
-          apksigner=$(find "$ANDROID_HOME/build-tools" -type f -name apksigner | sort -V | tail -1)
-          "$apksigner" verify --verbose build/app/outputs/flutter-apk/app-release.apk
           jarsigner -verify build/app/outputs/bundle/release/app-release.aab | tee /tmp/aab-signature.txt
           grep -q '^jar verified\.$' /tmp/aab-signature.txt
 
-      - name: Upload APK artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: release-apk
-          path: build/app/outputs/flutter-apk/app-release.apk
-          retention-days: 14
+      - name: Write release notes
+        env:
+          RELEASE_NOTES: ${{ inputs.release_notes }}
+        run: printf '%s\n' "$RELEASE_NOTES" > distribution/whatsnew/whatsnew-en-US
 
-      - name: Upload AAB artifact
+      - name: Upload signed AAB artifact
         uses: actions/upload-artifact@v4
         with:
-          name: release-aab
+          name: play-internal-aab-${{ steps.version.outputs.code }}
           path: build/app/outputs/bundle/release/app-release.aab
           retention-days: 30
 
-      - name: Deploy to Firebase App Distribution
-        uses: wzieba/Firebase-Distribution-Github-Action@v1
+      - name: Authenticate to Google Cloud without a JSON key
+        id: auth
+        uses: google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093
         with:
-          appId: ${{ secrets.FIREBASE_APP_ID }}
-          serviceCredentialsFileContent: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
-          groups: testers
-          file: build/app/outputs/flutter-apk/app-release.apk
-          releaseNotes: ${{ github.event.inputs.release_notes }}
+          project_id: kanvas-mobile-4569f
+          workload_identity_provider: ${{ vars.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ vars.GCP_PLAY_SERVICE_ACCOUNT }}
+
+      - name: Upload to Google Play internal track
+        if: inputs.upload_to_play
+        uses: r0adkll/upload-google-play@e738b9dd8f2476ea806d921b64aacd24f34515a5
+        with:
+          serviceAccountJson: ${{ steps.auth.outputs.credentials_file_path }}
+          packageName: ai.kanvas.mobile
+          releaseFiles: build/app/outputs/bundle/release/app-release.aab
+          tracks: internal
+          status: ${{ inputs.release_status }}
+          releaseName: Kanvas 1.0.2 (${{ steps.version.outputs.code }})
+          whatsNewDirectory: distribution/whatsnew

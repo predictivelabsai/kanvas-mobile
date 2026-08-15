@@ -105,7 +105,7 @@ Android OAuth Client ID: `76656799510-99q9f28jc0494atvgmjirppeuk2mfe8l.apps.goog
 # Generate mocks first
 dart run build_runner build --delete-conflicting-outputs
 
-# Run all tests (209 tests)
+# Run all tests (222 tests)
 flutter test
 
 # Run by category
@@ -116,7 +116,7 @@ flutter test test/integration/
 
 ## Test Suite
 
-23 test files, 209 tests across three layers:
+23 test files, 222 tests across three layers:
 
 | Category | Files | Coverage |
 |----------|-------|----------|
@@ -132,9 +132,21 @@ flutter test test/integration/
 
 On every push to `main`:
 1. **Analyze** — `dart format --set-exit-if-changed` + `flutter analyze`
-2. **Test** — `flutter test --coverage` (209 tests)
-3. **Build** — `flutter build apk --release` + `flutter build appbundle --release`
+2. **Test** — `flutter test --coverage` (222 tests)
+3. **Build** — signed `flutter build apk --release` + `flutter build appbundle --release`
 4. **Distribute** — APK uploaded to Firebase App Distribution (testers group)
+
+Pull requests run analysis and tests without receiving release-signing secrets. Main-branch and
+manual release builds fail closed if any signing secret is missing; they never fall back to the
+debug key.
+
+### Google Play internal testing
+
+The manual **Prepare or Deploy Google Play Internal** workflow always builds and retains a signed
+AAB. Its `upload_to_play` input defaults to `false`. Once the Play account has passed verification,
+the Kanvas app record and first AAB have been created manually, the same workflow can upload only
+to the `internal` track using keyless GitHub OIDC authentication. See
+[`docs/google-play-release.md`](docs/google-play-release.md).
 
 ### Firebase App Distribution
 
@@ -153,10 +165,13 @@ To install on device:
 |--------|---------|
 | `FIREBASE_SERVICE_ACCOUNT` | Service account JSON for Firebase App Distribution uploads |
 | `FIREBASE_APP_ID` | Firebase Android app ID |
-| `KEYSTORE_BASE64` | Base64-encoded release keystore (optional, uses debug signing if absent) |
+| `KEYSTORE_BASE64` | Base64-encoded release keystore (required for release builds) |
 | `KEY_ALIAS` | Keystore key alias |
 | `KEY_PASSWORD` | Keystore key password |
 | `STORE_PASSWORD` | Keystore store password |
+
+The Play workflow also uses non-secret repository variables `GCP_WORKLOAD_IDENTITY_PROVIDER` and
+`GCP_PLAY_SERVICE_ACCOUNT` for Workload Identity Federation.
 
 ## GCP / Firebase Configuration
 

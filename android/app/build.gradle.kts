@@ -13,6 +13,24 @@ if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(FileInputStream(keystorePropertiesFile))
 }
 
+val requireReleaseSigning =
+    providers.environmentVariable("KANVAS_REQUIRE_RELEASE_SIGNING").orNull == "true"
+val requiredSigningProperties = listOf("storePassword", "keyPassword", "keyAlias", "storeFile")
+val missingSigningProperties =
+    requiredSigningProperties.filter { keystoreProperties.getProperty(it).isNullOrBlank() }
+
+if (keystorePropertiesFile.exists() && missingSigningProperties.isNotEmpty()) {
+    throw GradleException(
+        "android/key.properties is missing: ${missingSigningProperties.joinToString()}",
+    )
+}
+
+if (requireReleaseSigning && !keystorePropertiesFile.exists()) {
+    throw GradleException(
+        "Release signing is required, but android/key.properties does not exist.",
+    )
+}
+
 android {
     namespace = "ai.kanvas.mobile"
     compileSdk = flutter.compileSdkVersion
@@ -47,7 +65,7 @@ android {
             signingConfig = if (keystorePropertiesFile.exists()) {
                 signingConfigs.getByName("release")
             } else {
-                signingConfigs.getByName("debug")
+                null
             }
         }
     }
