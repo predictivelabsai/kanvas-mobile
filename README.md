@@ -105,7 +105,7 @@ Android OAuth Client ID: `76656799510-99q9f28jc0494atvgmjirppeuk2mfe8l.apps.goog
 # Generate mocks first
 dart run build_runner build --delete-conflicting-outputs
 
-# Run all tests (222 tests)
+# Run all tests (226 tests)
 flutter test
 
 # Run by category
@@ -116,7 +116,7 @@ flutter test test/integration/
 
 ## Test Suite
 
-23 test files, 222 tests across three layers:
+25 test files, 226 tests across three layers:
 
 | Category | Files | Coverage |
 |----------|-------|----------|
@@ -132,7 +132,7 @@ flutter test test/integration/
 
 On every push to `main`:
 1. **Analyze** — `dart format --set-exit-if-changed` + `flutter analyze`
-2. **Test** — `flutter test --coverage` (222 tests)
+2. **Test** — `flutter test --coverage` (226 tests)
 3. **Build** — signed `flutter build apk --release` + `flutter build appbundle --release`
 4. **Distribute** — APK uploaded to Firebase App Distribution (testers group)
 
@@ -147,6 +147,11 @@ AAB. Its `upload_to_play` input defaults to `false`. Once the Play account has p
 the Kanvas app record and first AAB have been created manually, the same workflow can upload only
 to the `internal` track using keyless GitHub OIDC authentication. See
 [`docs/google-play-release.md`](docs/google-play-release.md).
+
+The evidence-backed store copy, graphics, phone screenshots, data-safety worksheet, reviewer access
+instructions, and internal-test plan are in [`distribution/google-play`](distribution/google-play).
+Kanvas also provides in-app AI-response reporting and permanent account deletion, with public privacy
+and deletion resources at `https://kanvas.ai/privacy` and `https://kanvas.ai/account-deletion`.
 
 ### Firebase App Distribution
 

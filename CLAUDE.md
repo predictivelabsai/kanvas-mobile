@@ -11,7 +11,7 @@ flutter pub get
 # Generate mocks and serialization code (required before tests run)
 dart run build_runner build --delete-conflicting-outputs
 
-# Run all tests (222 tests)
+# Run all tests (226 tests)
 flutter test
 
 # Run a single test file
@@ -114,7 +114,7 @@ Single `AppTheme.light` in `config/theme.dart`. Uses a dark ink (#1A1A1A) + whit
 
 ## Testing
 
-23 test files, 222 tests. Three layers:
+25 test files, 226 tests. Three layers:
 - `test/unit/` — models (JSON round-trip), services (mocked Dio via `@GenerateMocks`), utils
 - `test/widget/` — individual widget rendering and interaction (10 files)
 - `test/integration/` — multi-widget flows using providers and router (5 files)
@@ -125,7 +125,7 @@ Service tests require generated mock files. Run `dart run build_runner build` be
 
 GitHub Actions CI (`.github/workflows/ci.yml`) runs on every push to main:
 1. Analyze (format + static analysis)
-2. Test (222 tests with coverage)
+2. Test (226 tests with coverage)
 3. Build Android APK + AAB
 4. Distribute APK to Firebase App Distribution (testers group)
 

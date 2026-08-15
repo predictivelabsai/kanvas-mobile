@@ -10,8 +10,9 @@ import 'package:kanvas/utils/text_sanitize.dart';
 
 class ChatMessageBubble extends StatelessWidget {
   final ChatMessage message;
+  final VoidCallback? onReport;
 
-  const ChatMessageBubble({super.key, required this.message});
+  const ChatMessageBubble({super.key, required this.message, this.onReport});
 
   bool get _isUser => message.role == 'user';
 
@@ -163,6 +164,22 @@ class ChatMessageBubble extends StatelessWidget {
                     },
                   ),
           ),
+
+          if (!_isUser && onReport != null)
+            Align(
+              alignment: Alignment.centerLeft,
+              child: TextButton.icon(
+                onPressed: onReport,
+                icon: const Icon(Icons.flag_outlined, size: 16),
+                label: const Text('Report response'),
+                style: TextButton.styleFrom(
+                  foregroundColor: AppTheme.gray500,
+                  textStyle: const TextStyle(fontSize: 12),
+                  padding: const EdgeInsets.symmetric(horizontal: 4),
+                  minimumSize: const Size(0, 36),
+                ),
+              ),
+            ),
 
           // Tool execution cards
           if (message.toolCalls.isNotEmpty) ...[

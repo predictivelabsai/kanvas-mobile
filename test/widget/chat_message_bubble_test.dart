@@ -14,6 +14,26 @@ Widget _wrapWidget(Widget child) {
 
 void main() {
   group('ChatMessageBubble', () {
+    testWidgets('shows a report control for AI responses', (tester) async {
+      var reported = false;
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: ChatMessageBubble(
+              message: const ChatMessage(
+                role: 'assistant',
+                content: 'An AI response',
+              ),
+              onReport: () => reported = true,
+            ),
+          ),
+        ),
+      );
+
+      await tester.tap(find.text('Report response'));
+
+      expect(reported, isTrue);
+    });
     testWidgets('renders user message', (tester) async {
       const msg = ChatMessage(role: 'user', content: 'Find me a BMW');
       await tester.pumpWidget(

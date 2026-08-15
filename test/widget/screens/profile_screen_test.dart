@@ -145,6 +145,23 @@ void main() {
       expect(find.text('Save Notifications'), findsOneWidget);
     });
 
+    testWidgets('renders privacy and account deletion controls', (
+      tester,
+    ) async {
+      await tester.pumpWidget(_buildProfileScreen());
+      await tester.pumpAndSettle();
+
+      await tester.scrollUntilVisible(
+        find.text('Privacy & account deletion'),
+        250,
+        scrollable: find.byType(Scrollable).first,
+      );
+
+      expect(find.text('Privacy policy'), findsOneWidget);
+      expect(find.text('Deletion help'), findsOneWidget);
+      expect(find.text('Delete account'), findsOneWidget);
+    });
+
     testWidgets('renders all three sections in scrollable form', (
       tester,
     ) async {

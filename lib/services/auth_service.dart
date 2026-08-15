@@ -42,4 +42,8 @@ class AuthService {
     final json = await _client.get('/auth/me');
     return UserInfo.fromJson(json);
   }
+
+  Future<void> deleteAccount() async {
+    await _client.delete('/account');
+  }
 }

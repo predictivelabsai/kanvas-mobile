@@ -74,6 +74,13 @@ class AuthNotifier extends AsyncNotifier<AuthResponse?> {
     await SecureStorage.deleteToken();
     state = const AsyncValue.data(null);
   }
+
+  Future<void> deleteAccount() async {
+    final service = ref.read(authServiceProvider);
+    await service.deleteAccount();
+    await SecureStorage.deleteToken();
+    state = const AsyncValue.data(null);
+  }
 }
 
 // Convenience providers

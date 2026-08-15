@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'package:kanvas/config/constants.dart';
 import 'package:kanvas/config/theme.dart';
 import 'package:kanvas/models/profile.dart';
 import 'package:kanvas/providers/profile_provider.dart';
+import 'package:kanvas/providers/auth_provider.dart';
 
 class ProfileScreen extends ConsumerStatefulWidget {
   const ProfileScreen({super.key});
@@ -31,6 +34,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   bool _savingAccount = false;
   bool _savingPrefs = false;
   bool _savingNotifications = false;
+  bool _deletingAccount = false;
 
   static const _currencies = ['EUR', 'GBP', 'SEK', 'USD'];
 
@@ -167,6 +171,76 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
       );
     } finally {
       if (mounted) setState(() => _savingNotifications = false);
+    }
+  }
+
+  Future<void> _openPolicy(String url) async {
+    await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
+  }
+
+  Future<void> _confirmDeleteAccount() async {
+    final confirmationController = TextEditingController();
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text('Delete Kanvas account?'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              'This permanently deletes your profile, preferences, saved chats, messages, reports, and shared chat links. This cannot be undone.',
+            ),
+            const SizedBox(height: 16),
+            TextField(
+              controller: confirmationController,
+              decoration: const InputDecoration(
+                labelText: 'Type DELETE to confirm',
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext, false),
+            child: const Text('Cancel'),
+          ),
+          ValueListenableBuilder<TextEditingValue>(
+            valueListenable: confirmationController,
+            builder: (context, value, child) {
+              return TextButton(
+                onPressed: value.text == 'DELETE'
+                    ? () => Navigator.pop(dialogContext, true)
+                    : null,
+                style: TextButton.styleFrom(foregroundColor: AppTheme.red600),
+                child: const Text('Delete permanently'),
+              );
+            },
+          ),
+        ],
+      ),
+    );
+    confirmationController.dispose();
+    if (confirmed != true || !mounted) return;
+
+    setState(() => _deletingAccount = true);
+    try {
+      await ref.read(authProvider.notifier).deleteAccount();
+      if (!mounted) return;
+      context.go('/');
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Your Kanvas account was deleted.')),
+      );
+    } catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Could not delete account: $e'),
+          backgroundColor: AppTheme.red600,
+        ),
+      );
+    } finally {
+      if (mounted) setState(() => _deletingAccount = false);
     }
   }
 
@@ -345,6 +419,54 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
             'Save Notifications',
             _savingNotifications,
             _saveNotifications,
+          ),
+
+          const SizedBox(height: 32),
+          const Divider(),
+          const SizedBox(height: 16),
+
+          _sectionHeader('Privacy & account deletion'),
+          const SizedBox(height: 8),
+          const Text(
+            'Review how Kanvas handles your data or permanently delete your account and associated data.',
+            style: TextStyle(fontSize: 14, height: 1.5),
+          ),
+          const SizedBox(height: 8),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Wrap(
+              spacing: 8,
+              children: [
+                TextButton(
+                  onPressed: () => _openPolicy('https://kanvas.ai/privacy'),
+                  child: const Text('Privacy policy'),
+                ),
+                TextButton(
+                  onPressed: () =>
+                      _openPolicy('https://kanvas.ai/account-deletion'),
+                  child: const Text('Deletion help'),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 8),
+          SizedBox(
+            height: 48,
+            child: OutlinedButton.icon(
+              onPressed: _deletingAccount ? null : _confirmDeleteAccount,
+              icon: _deletingAccount
+                  ? const SizedBox(
+                      width: 18,
+                      height: 18,
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    )
+                  : const Icon(Icons.delete_forever_outlined),
+              label: const Text('Delete account'),
+              style: OutlinedButton.styleFrom(
+                foregroundColor: AppTheme.red600,
+                side: BorderSide(color: AppTheme.red600),
+              ),
+            ),
           ),
 
           const SizedBox(height: 48),

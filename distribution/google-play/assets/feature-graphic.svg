@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="500" viewBox="0 0 1024 500">
+  <rect width="1024" height="500" fill="#f7f5f0"/>
+  <rect x="0" y="0" width="1024" height="500" fill="url(#paper)" opacity="0.5"/>
+  <defs>
+    <pattern id="paper" width="24" height="24" patternUnits="userSpaceOnUse">
+      <path d="M0 24L24 0" stroke="#ddd8cf" stroke-width="1" opacity="0.35"/>
+    </pattern>
+    <clipPath id="frame"><rect x="615" y="58" width="326" height="384" rx="28"/></clipPath>
+  </defs>
+  <circle cx="876" cy="68" r="182" fill="#e7c8a0" opacity="0.55"/>
+  <circle cx="746" cy="420" r="224" fill="#9aa990" opacity="0.46"/>
+  <rect x="72" y="68" width="58" height="58" rx="14" fill="#1a1a1a"/>
+  <path d="M89 111V84h8v11l11-11h10l-13 13 14 14h-11L97 100v11z" fill="#ffffff"/>
+  <text x="72" y="190" font-family="Georgia, serif" font-size="72" font-weight="600" fill="#1a1a1a">Kanvas</text>
+  <text x="307" y="190" font-family="Georgia, serif" font-size="72" fill="#7c7c78">.ai</text>
+  <text x="74" y="246" font-family="Arial, sans-serif" font-size="25" font-weight="600" letter-spacing="1" fill="#1a1a1a">ART MARKET INTELLIGENCE</text>
+  <text x="74" y="294" font-family="Arial, sans-serif" font-size="22" fill="#555550">Research artists. Read auction signals.</text>
+  <text x="74" y="326" font-family="Arial, sans-serif" font-size="22" fill="#555550">Build a more informed collection.</text>
+  <line x1="74" y1="376" x2="490" y2="376" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="74" y="414" font-family="Arial, sans-serif" font-size="17" fill="#686863">AI-assisted research for Baltic and Nordic art</text>
+  <g clip-path="url(#frame)">
+    <rect x="615" y="58" width="326" height="384" fill="#ffffff"/>
+    <rect x="615" y="58" width="326" height="58" fill="#1a1a1a"/>
+    <text x="645" y="94" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#ffffff">Kanvas AI</text>
+    <rect x="647" y="146" width="245" height="58" rx="18" fill="#f2f1ed"/>
+    <text x="666" y="172" font-family="Arial, sans-serif" font-size="14" fill="#30302e">Compare auction results</text>
+    <text x="666" y="190" font-family="Arial, sans-serif" font-size="14" fill="#30302e">for two Baltic artists</text>
+    <rect x="705" y="226" width="205" height="46" rx="16" fill="#1a1a1a"/>
+    <text x="727" y="254" font-family="Arial, sans-serif" font-size="14" fill="#ffffff">Start a market analysis</text>
+    <rect x="647" y="300" width="248" height="12" rx="6" fill="#cfcac0"/>
+    <rect x="647" y="326" width="214" height="12" rx="6" fill="#dedad2"/>
+    <rect x="647" y="352" width="233" height="12" rx="6" fill="#dedad2"/>
+    <rect x="647" y="396" width="262" height="26" rx="13" fill="#f2f1ed"/>
+  </g>
+  <rect x="615" y="58" width="326" height="384" rx="28" fill="none" stroke="#1a1a1a" stroke-width="4"/>
+</svg>

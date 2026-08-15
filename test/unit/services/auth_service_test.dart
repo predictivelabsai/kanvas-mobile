@@ -88,4 +88,14 @@ void main() {
       expect(() => authService.me(), throwsA(isA<UnauthorizedException>()));
     });
   });
+
+  group('AuthService.deleteAccount', () {
+    test('calls the authenticated account deletion endpoint', () async {
+      when(mockClient.delete('/account')).thenAnswer((_) async {});
+
+      await authService.deleteAccount();
+
+      verify(mockClient.delete('/account')).called(1);
+    });
+  });
 }

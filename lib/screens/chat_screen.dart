@@ -4,6 +4,7 @@ import 'package:kanvas/config/theme.dart';
 import 'package:kanvas/models/chat.dart';
 import 'package:kanvas/providers/chat_provider.dart';
 import 'package:kanvas/providers/session_provider.dart';
+import 'package:kanvas/providers/auth_provider.dart';
 import 'package:kanvas/screens/chat/widgets/chat_sidebar.dart';
 import 'package:kanvas/screens/chat/widgets/chat_input_bar.dart';
 import 'package:kanvas/screens/chat/widgets/chat_message_bubble.dart';
@@ -12,6 +13,7 @@ import 'package:kanvas/screens/chat/widgets/tool_execution_card.dart';
 import 'package:kanvas/screens/chat/widgets/chart_artifact_card.dart';
 import 'package:kanvas/screens/chat/widgets/welcome_message.dart';
 import 'package:kanvas/utils/text_sanitize.dart';
+import 'package:kanvas/services/report_service.dart';
 import 'package:share_plus/share_plus.dart';
 
 class ChatScreen extends ConsumerStatefulWidget {
@@ -22,6 +24,10 @@ class ChatScreen extends ConsumerStatefulWidget {
   @override
   ConsumerState<ChatScreen> createState() => _ChatScreenState();
 }
+
+final _reportServiceProvider = Provider<ReportService>((ref) {
+  return ReportService(ref.read(apiClientProvider));
+});
 
 class _ChatScreenState extends ConsumerState<ChatScreen> {
   final ScrollController _scrollController = ScrollController();
@@ -143,6 +149,54 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text('Could not share: $e')));
+    }
+  }
+
+  Future<void> _reportMessage(ChatMessage message) async {
+    final reason = await showDialog<String>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Report AI response'),
+        content: const Text(
+          'Tell us what is wrong. Reports help us improve the safety and quality of Kanvas.',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancel'),
+          ),
+          for (final reason in const [
+            'Unsafe or harmful',
+            'Offensive content',
+            'Misleading or inaccurate',
+            'Other',
+          ])
+            TextButton(
+              onPressed: () => Navigator.pop(context, reason),
+              child: Text(reason),
+            ),
+        ],
+      ),
+    );
+    if (reason == null || !mounted) return;
+
+    try {
+      await ref
+          .read(_reportServiceProvider)
+          .reportAIContent(
+            reason: reason,
+            responseContent: message.content,
+            sessionId: ref.read(chatProvider).currentSessionId,
+          );
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Thank you. The response was reported.')),
+      );
+    } catch (_) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Could not send the report. Try again.')),
+      );
     }
   }
 
@@ -304,7 +358,12 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
 
         // Regular message bubble
         final message = chatState.messages[index];
-        return ChatMessageBubble(message: message);
+        return ChatMessageBubble(
+          message: message,
+          onReport: message.role == 'assistant'
+              ? () => _reportMessage(message)
+              : null,
+        );
       },
     );
   }

@@ -1,0 +1,16 @@
+Explore the Baltic and Nordic art market with Kanvas, an AI-assisted research and collection-advisory app.
+
+Ask questions in natural language and Kanvas routes them to specialist art agents for:
+
+• Artist research and comparisons
+• Auction-result and market-trend analysis
+• Artwork valuation research using comparable sales
+• Acquisition and collection guidance
+• Portfolio analysis
+• Provenance research
+
+Kanvas combines auction records, artist data and web research to present concise answers, source context and visual results. Save conversations to your account, revisit previous research, and share a selected chat through a link when you choose.
+
+The app supports English, Estonian, German, French, Swedish, Latvian, Norwegian, Danish, Polish, Dutch, Finnish and Lithuanian.
+
+Important: Kanvas provides informational art-market research. AI output and estimated values may be incomplete or incorrect and should be independently verified. The Android app does not execute purchases, hold money or artwork, provide brokerage services, or replace professional legal, tax, investment, authentication or appraisal advice.

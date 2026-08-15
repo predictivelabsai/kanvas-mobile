@@ -48,3 +48,19 @@ After account verification completes:
 
 The `upload_to_play` switch is intentionally false by default. Identity, policy declarations,
 store listing, data safety, and production review remain human-controlled Play Console gates.
+
+## Submission materials
+
+The Play Console preparation pack is in [`distribution/google-play`](../distribution/google-play).
+It contains the English listing, Play-sized graphics, four real production-connected Flutter UI
+screenshots, app-access instructions, internal-test checks, and an evidence-backed declaration
+worksheet. The current screenshots are suitable for internal listing preparation but must be
+recaptured from the signed Android build before production submission.
+
+Public policy resources:
+
+- Privacy policy: `https://kanvas.ai/privacy`
+- Account deletion: `https://kanvas.ai/account-deletion`
+
+The app provides permanent authenticated account deletion and an in-app report control below
+AI-generated responses. Keep those backend endpoints and public pages live for every Play release.
